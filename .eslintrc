@@ -17,30 +17,7 @@
     "prettier/prettier": ["error", { "singleQuote": true }],
     "@typescript-eslint/explicit-member-accessibility": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-explicit-any": 1,
-    "@typescript-eslint/naming-convention": [
-      "error",
-      {
-        "selector": "default",
-        "format": ["camelCase"],
-        "leadingUnderscore": "allow",
-        "trailingUnderscore": "allow"
-      },
-      {
-        "selector": "variable",
-        "format": ["camelCase", "UPPER_CASE"],
-        "leadingUnderscore": "allow",
-        "trailingUnderscore": "allow"
-      },
-      {
-        "selector": "typeLike",
-        "format": ["PascalCase"]
-      },
-      {
-        "selector": "function",
-        "format": ["PascalCase", "camelCase"]
-      }
-    ]
+    "@typescript-eslint/no-explicit-any": 1
   },
   "env": {
     "browser": true,

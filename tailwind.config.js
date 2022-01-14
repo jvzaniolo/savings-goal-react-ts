@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['"Work Sans"', 'sans-serif'],
+        display: ['Rubik', 'sans-serif'],
       },
       boxShadow: {
         level4: '0px 16px 32px rgba(30, 42, 50, 0.08)',

@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useReachDate } from '../contexts/ReachDateContext';
-import { ReachDate } from './ReachDate';
+import { ReachDateInput } from './ReachDateInput';
 import { MonthlyAmount } from './MonthlyAmount';
 import { CurrencyInput } from '../layout/CurrencyInput';
 import { BsCurrencyDollar } from 'react-icons/bs';
@@ -15,14 +15,21 @@ interface Amount {
 
 export function SavingGoal(): JSX.Element {
   const [amount, setAmount] = useState<Amount | undefined>(undefined);
-  const { month, year, monthlyDeposits } = useReachDate();
+  const {
+    month,
+    year,
+    shouldHandlePrevMonth,
+    monthlyDeposits,
+    handlePrevMonth,
+    handleNextMonth,
+  } = useReachDate();
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
   }
 
-  function handleMonthlyAmount(): number | undefined {
-    if (!amount) return;
+  function handleMonthlyAmount(): number {
+    if (!amount) return 0;
 
     return amount.float > 0 ? amount.float / monthlyDeposits : 0;
   }
@@ -61,10 +68,12 @@ export function SavingGoal(): JSX.Element {
             </div>
 
             <div className="flex-1">
-              <span className="mb-1 text-sm text-blue-gray-900">
-                Reach goal by
-              </span>
-              <ReachDate className="" />
+              <ReachDateInput
+                value={`${month} ${year}`}
+                isDisabled={shouldHandlePrevMonth}
+                onPrevMonthChange={handlePrevMonth}
+                onNextMonthChange={handleNextMonth}
+              />
             </div>
           </div>
 

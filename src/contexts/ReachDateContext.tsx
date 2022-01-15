@@ -4,7 +4,7 @@ import { createContext } from 'react';
 interface ReachDateContextValue {
   year: number;
   month: string;
-  isDisabled: boolean;
+  shouldHandlePrevMonth: boolean;
   monthlyDeposits: number;
   handlePrevMonth(): void;
   handleNextMonth(): void;
@@ -40,11 +40,11 @@ export function ReachDateProvider({ children }: { children: JSX.Element }) {
 
   // the previous action is disabled if the current month is equal the chosen month
   // and the current year is equal to the chosen year
-  const isDisabled =
+  const shouldHandlePrevMonth =
     new Date().getMonth() === monthIndex && new Date().getFullYear() === year;
 
   function handlePrevMonth() {
-    if (isDisabled) return;
+    if (shouldHandlePrevMonth) return;
 
     setMonthlyDepositsCounter(monthlyDepositsCounter - 1);
 
@@ -78,7 +78,7 @@ export function ReachDateProvider({ children }: { children: JSX.Element }) {
       value={{
         year,
         month,
-        isDisabled,
+        shouldHandlePrevMonth,
         monthlyDeposits: monthlyDepositsCounter,
         handlePrevMonth,
         handleNextMonth,

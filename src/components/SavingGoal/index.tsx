@@ -1,11 +1,11 @@
 import { FormEvent, useState } from 'react';
-import { useSavingGoal } from '../contexts/ReachDateContext';
+import { useSavingGoal } from '../../contexts/SavingGoalContext';
 import { ReachDateInput } from './ReachDateInput';
 import { MonthlyAmount } from './MonthlyAmount';
 import { CurrencyInput } from './CurrencyInput';
 import { BsCurrencyDollar } from 'react-icons/bs';
 
-import buyAHouseImg from '../assets/icons/buy-a-house.svg';
+import buyAHouseImg from '../../assets/icons/buy-a-house.svg';
 
 interface Amount {
   float: number;

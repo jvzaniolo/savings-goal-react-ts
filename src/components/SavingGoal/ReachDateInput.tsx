@@ -49,9 +49,10 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
             type="button"
             tabIndex={2}
             onClick={onPrevMonthChange}
-            className={`w-10 h-10 text-center rounded-full transition-colors text-blue-gray-300 hover:bg-slate-100 focus:outline-none ${
-              isDisabled &&
-              'text-blue-gray-50 hover:bg-transparent cursor-not-allowed'
+            className={`w-10 h-10 text-center rounded-full transition-colors focus:outline-none ${
+              isDisabled
+                ? 'text-blue-gray-50 hover:bg-transparent cursor-not-allowed'
+                : 'text-blue-gray-300 hover:bg-slate-100'
             }`}
             onFocus={() => setHasFocus(true)}
             onBlur={() => setHasFocus(false)}
@@ -84,7 +85,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
         style={{
           transform: 'scale(0)',
         }}
-        value={`${month} ${year}`}
+        defaultValue={`${month} ${year}`}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
       />

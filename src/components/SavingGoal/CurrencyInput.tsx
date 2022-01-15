@@ -24,7 +24,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
   return (
     <>
       {label && (
-        <label htmlFor={id} className="mb-1 text-sm text-blue-gray-900">
+        <label htmlFor={id} className="mb-1 text-sm text-blue-gray-800">
           {label}
         </label>
       )}
@@ -34,7 +34,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
         } group flex flex-nowrap items-center space-x-1 rounded border font-display font-medium text-2xl border-blue-gray-50 text-blue-gray-600 transition-colors overflow-hidden focus-within:outline focus-within:outline-blue-600 focus-within:outline-2 ${className}`}
       >
         {icon && (
-          <span className="transition-colors text-blue-gray-50 group-focus-within:text-blue-700">
+          <span className="transition-colors group-focus-within:text-blue-700">
             {icon}
           </span>
         )}

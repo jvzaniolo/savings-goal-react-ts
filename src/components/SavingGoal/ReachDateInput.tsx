@@ -2,13 +2,17 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import {
   forwardRef,
   ForwardRefRenderFunction,
+  InputHTMLAttributes,
+  ReactNode,
   useEffect,
   useState,
 } from 'react';
 
-interface ReachDateInputComponentProps {
+interface ReachDateInputComponentProps
+  extends InputHTMLAttributes<HTMLInputElement> {
   month: string;
   year: number;
+  label?: ReactNode;
   isDisabled: boolean;
   onPrevMonthChange(): void;
   onNextMonthChange(): void;
@@ -18,7 +22,16 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
   HTMLInputElement,
   ReachDateInputComponentProps
 > = (
-  { month, year, isDisabled, onPrevMonthChange, onNextMonthChange },
+  {
+    id,
+    className,
+    label,
+    month,
+    year,
+    isDisabled,
+    onPrevMonthChange,
+    onNextMonthChange,
+  },
   ref
 ) => {
   const [hasFocus, setHasFocus] = useState(false);
@@ -38,11 +51,13 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
 
   return (
     <>
-      <label htmlFor="reach-date" tabIndex={1}>
-        <span className="mb-1 text-sm text-blue-gray-900">Reach goal by</span>
+      <label htmlFor={id} tabIndex={1} className={className}>
+        {label && (
+          <span className="mb-1 text-sm text-blue-gray-800">{label}</span>
+        )}
         <div
           className={`py-1 px-2 flex rounded border items-center border-blue-gray-50 ${
-            hasFocus && 'outline outline-2 outline-blue-600'
+            hasFocus ? 'outline outline-2 outline-blue-600' : ''
           }`}
         >
           <button
@@ -60,17 +75,17 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
             <MdKeyboardArrowLeft size={24} className="m-2" />
           </button>
           <section className="flex flex-col flex-1 items-center">
-            <span className="w-24 font-semibold text-blue-gray-900 text-center">
+            <span className="w-24 font-semibold text-blue-gray-800 text-center">
               {month}
             </span>
 
-            <span>{year}</span>
+            <span className="text-blue-gray-400">{year}</span>
           </section>
           <button
             type="button"
             tabIndex={3}
             onClick={onNextMonthChange}
-            className="flex items-center text-center rounded-full transition-colors text-blue-gray-300 hover:bg-slate-100 focus:outline-none"
+            className="flex items-center text-center rounded-full transition-colors focus:outline-none text-blue-gray-300 hover:bg-slate-100 "
             onFocus={() => setHasFocus(true)}
             onBlur={() => setHasFocus(false)}
           >
@@ -80,11 +95,9 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
       </label>
       <input
         ref={ref}
-        id="reach-date"
-        name="reach-date"
-        style={{
-          transform: 'scale(0)',
-        }}
+        id={id}
+        name={id}
+        className="absolute -left-full opacity-0"
         defaultValue={`${month} ${year}`}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}

@@ -16,8 +16,8 @@ export function MonthlyAmount({
   return (
     <div className="flex flex-col rounded-lg border border-blue-gray-50">
       <p className="flex justify-between py-6 px-8 items-center">
-        <span className="text-xl text-blue-gray-900">Monthly amount</span>
-        <span className="text-[32px] text-brand-secondary font-display font-bold block overflow-hidden whitespace-nowrap text-ellipsis">
+        <span className="text-xl text-blue-gray-800">Monthly amount</span>
+        <span className="block text-3xl font-display font-medium text-brand-secondary overflow-hidden whitespace-nowrap text-ellipsis">
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',

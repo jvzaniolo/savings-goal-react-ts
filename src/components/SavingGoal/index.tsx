@@ -49,7 +49,7 @@ export function SavingGoal(): JSX.Element {
           <section className="flex space-x-4">
             <img src={buyAHouseImg} alt="Buy a house" />
             <div className="space-y-1">
-              <h1 className="text-2xl font-display font-medium text-blue-gray-900">
+              <h1 className="text-2xl font-display font-medium text-blue-gray-800">
                 Buy a house
               </h1>
               <h2 className="text-blue-gray-400">Saving Goal</h2>
@@ -57,25 +57,27 @@ export function SavingGoal(): JSX.Element {
           </section>
 
           <div className="flex flex-wrap gap-4">
-            <div className="flex-1">
+            <div className="flex flex-col flex-1">
               <CurrencyInput
                 id="amount"
-                type="text"
                 label="Total amount"
-                icon={<BsCurrencyDollar size={24} />}
+                icon={
+                  <BsCurrencyDollar size={24} className="text-blue-gray-100" />
+                }
                 onValueChange={(_, __, values) => setAmount(values as Amount)}
               />
             </div>
 
-            <div className="flex-1">
-              <ReachDateInput
-                month={month}
-                year={year}
-                isDisabled={shouldHandlePrevMonth}
-                onPrevMonthChange={handlePrevMonth}
-                onNextMonthChange={handleNextMonth}
-              />
-            </div>
+            <ReachDateInput
+              id="reach-date"
+              label="Reach goal by"
+              month={month}
+              year={year}
+              isDisabled={shouldHandlePrevMonth}
+              onPrevMonthChange={handlePrevMonth}
+              onNextMonthChange={handleNextMonth}
+              className="flex flex-col flex-1"
+            />
           </div>
 
           <MonthlyAmount
@@ -88,7 +90,7 @@ export function SavingGoal(): JSX.Element {
 
           <button
             type="submit"
-            className="sm:max-w-xs w-full mx-auto p-4 !mt-8 rounded-full bg-blue-800 text-neutral-white"
+            className="sm:max-w-xs w-full mx-auto p-4 !mt-8 rounded-full bg-brand-primary text-neutral-white transition-shadow hover:shadow-md hover:shadow-blue-300"
           >
             Confirm
           </button>

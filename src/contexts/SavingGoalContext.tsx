@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { createContext } from 'react';
 
-interface ReachDateContextValue {
+interface SavingGoalContextValue {
   year: number;
   month: string;
   shouldHandlePrevMonth: boolean;
@@ -25,11 +25,11 @@ const MONTHS = [
   'December',
 ];
 
-const ReachDateContext = createContext<ReachDateContextValue | undefined>(
+const SavingGoalContext = createContext<SavingGoalContextValue | undefined>(
   undefined
 );
 
-export function ReachDateProvider({ children }: { children: JSX.Element }) {
+export function SavingGoalProvider({ children }: { children: JSX.Element }) {
   const [year, setYear] = useState(new Date().getFullYear());
   const [monthIndex, setMonthIndex] = useState(new Date().getMonth());
   // counter to monthly deposits
@@ -74,7 +74,7 @@ export function ReachDateProvider({ children }: { children: JSX.Element }) {
   }
 
   return (
-    <ReachDateContext.Provider
+    <SavingGoalContext.Provider
       value={{
         year,
         month,
@@ -85,12 +85,12 @@ export function ReachDateProvider({ children }: { children: JSX.Element }) {
       }}
     >
       {children}
-    </ReachDateContext.Provider>
+    </SavingGoalContext.Provider>
   );
 }
 
-export function useReachDate() {
-  const context = useContext(ReachDateContext);
+export function useSavingGoal() {
+  const context = useContext(SavingGoalContext);
 
   if (!context) throw new Error('A context must be used inside its provider');
 

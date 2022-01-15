@@ -1,15 +1,15 @@
 import { Header } from './layout/Header';
 import { SavingGoal } from './components/SavingGoal';
-import { ReachDateProvider } from './contexts/ReachDateContext';
+import { SavingGoalProvider } from './contexts/SavingGoalContext';
 
 export function App(): JSX.Element {
   return (
     <div className="w-screen h-screen bg-background">
       <Header />
       <main className="flex justify-center">
-        <ReachDateProvider>
+        <SavingGoalProvider>
           <SavingGoal />
-        </ReachDateProvider>
+        </SavingGoalProvider>
       </main>
     </div>
   );

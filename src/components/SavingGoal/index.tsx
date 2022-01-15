@@ -26,8 +26,6 @@ export function SavingGoal(): JSX.Element {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-
-    console.log(event);
   }
 
   function handleMonthlyAmount(): number {

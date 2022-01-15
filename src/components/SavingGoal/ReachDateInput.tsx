@@ -7,7 +7,8 @@ import {
 } from 'react';
 
 interface ReachDateInputComponentProps {
-  value: string;
+  month: string;
+  year: number;
   isDisabled: boolean;
   onPrevMonthChange(): void;
   onNextMonthChange(): void;
@@ -16,8 +17,10 @@ interface ReachDateInputComponentProps {
 const ReachDateInputComponent: ForwardRefRenderFunction<
   HTMLInputElement,
   ReachDateInputComponentProps
-> = ({ value, isDisabled, onPrevMonthChange, onNextMonthChange }, ref) => {
-  const [month, year] = value.split(' ');
+> = (
+  { month, year, isDisabled, onPrevMonthChange, onNextMonthChange },
+  ref
+) => {
   const [hasFocus, setHasFocus] = useState(false);
 
   useEffect(() => {
@@ -64,8 +67,8 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
           </section>
           <button
             type="button"
-            onClick={onNextMonthChange}
             tabIndex={3}
+            onClick={onNextMonthChange}
             className="flex items-center text-center rounded-full transition-colors text-blue-gray-300 hover:bg-slate-100 focus:outline-none"
             onFocus={() => setHasFocus(true)}
             onBlur={() => setHasFocus(false)}
@@ -76,12 +79,12 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
       </label>
       <input
         ref={ref}
-        value={value}
         id="reach-date"
         name="reach-date"
         style={{
           transform: 'scale(0)',
         }}
+        value={`${month} ${year}`}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
       />

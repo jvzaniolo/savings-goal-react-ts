@@ -28,21 +28,24 @@ export function MonthlyAmount({
       </p>
 
       <div className="py-6 px-8 bg-blue-gray-10">
-        <span className="text-xs sm:text-sm text-blue-gray-900">
-          You&apos;re planning{' '}
+        <span
+          className="text-xs sm:text-sm text-blue-gray-900"
+          data-testid="monthly-amount-summary"
+        >
+          You&apos;re planning&nbsp;
           <strong className="font-semibold">
-            {monthlyDeposits} monthly deposits
+            {monthlyDeposits} monthly deposits&nbsp;
           </strong>
-          &nbsp;to reach your{' '}
+          to reach your&nbsp;
           <strong className="font-semibold">
             {new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
             }).format(amount || 0)}
-          </strong>{' '}
-          goal by&nbsp;
+          </strong>
+          &nbsp;goal by&nbsp;
           <strong className="font-semibold">
-            {month} {year}.
+            {month}&nbsp;{year}.
           </strong>
         </span>
       </div>

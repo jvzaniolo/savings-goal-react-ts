@@ -49,6 +49,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
           decimalsLimit={2}
           onValueChange={onValueChange}
           className="flex-1 focus:outline-none"
+          data-testid="currency-input"
         />
       </div>
     </div>

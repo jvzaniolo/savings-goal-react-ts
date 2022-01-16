@@ -24,14 +24,17 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
   return (
     <div className="flex flex-1 flex-col">
       {label && (
-        <label htmlFor={id} className="mb-1 text-sm text-blue-gray-800">
+        <label
+          htmlFor={id}
+          className="mb-1 text-xs sm:text-sm text-blue-gray-800"
+        >
           {label}
         </label>
       )}
       <div
         className={`${
           icon ? 'pl-1 p-3' : 'p-3'
-        } group flex flex-nowrap items-center space-x-1 rounded border font-display font-medium text-2xl border-blue-gray-50 text-blue-gray-600 transition-colors overflow-hidden focus-within:outline focus-within:outline-blue-600 focus-within:outline-2 ${className}`}
+        } group h-14 flex flex-nowrap items-center space-x-1 rounded border font-display font-medium text-xl sm:text-2xl border-blue-gray-50 text-blue-gray-600 transition-colors overflow-hidden focus-within:outline focus-within:outline-blue-600 focus-within:outline-2 ${className}`}
       >
         {icon && (
           <span className="transition-colors group-focus-within:text-blue-700">

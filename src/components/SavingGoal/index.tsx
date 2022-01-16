@@ -49,10 +49,12 @@ export function SavingGoal(): JSX.Element {
           <section className="flex items-center space-x-4">
             <img src={buyAHouseImg} alt="Buy a house" width={64} />
             <div className="space-y-1">
-              <h1 className="text-2xl font-display font-medium text-blue-gray-800">
+              <h1 className="text-xl sm:text-2xl font-display font-medium text-blue-gray-800">
                 Buy a house
               </h1>
-              <h2 className="text-blue-gray-400">Saving Goal</h2>
+              <h2 className="text-sm sm:text-base text-blue-gray-400">
+                Saving Goal
+              </h2>
             </div>
           </section>
 

@@ -53,10 +53,12 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
     <div className="flex flex-1 flex-col">
       <label htmlFor={id} tabIndex={1} className={className}>
         {label && (
-          <span className="mb-1 text-sm text-blue-gray-800">{label}</span>
+          <span className="mb-1 text-xs sm:text-sm text-blue-gray-800">
+            {label}
+          </span>
         )}
         <div
-          className={`py-1 px-2 flex rounded border items-center border-blue-gray-50 ${
+          className={`h-14 py-1 px-2 flex rounded border items-center border-blue-gray-50 ${
             hasFocus ? 'outline outline-2 outline-blue-600' : ''
           } ${className}`}
         >
@@ -74,8 +76,8 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
           >
             <MdKeyboardArrowLeft size={24} className="m-2" />
           </button>
-          <section className="flex flex-col flex-1 items-center">
-            <span className="w-24 font-semibold text-blue-gray-800 text-center">
+          <section className="flex flex-col flex-1 items-center text-sm sm:text-base">
+            <span className="w-24 font-semibold text-center text-blue-gray-800">
               {month}
             </span>
 

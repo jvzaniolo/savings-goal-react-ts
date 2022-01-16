@@ -50,7 +50,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
   }, [hasFocus, onPrevMonthChange, onNextMonthChange]);
 
   return (
-    <>
+    <div className="flex flex-1 flex-col">
       <label htmlFor={id} tabIndex={1} className={className}>
         {label && (
           <span className="mb-1 text-sm text-blue-gray-800">{label}</span>
@@ -58,7 +58,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
         <div
           className={`py-1 px-2 flex rounded border items-center border-blue-gray-50 ${
             hasFocus ? 'outline outline-2 outline-blue-600' : ''
-          }`}
+          } ${className}`}
         >
           <button
             type="button"
@@ -102,7 +102,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
       />
-    </>
+    </div>
   );
 };
 

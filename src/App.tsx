@@ -4,9 +4,9 @@ import { SavingGoalProvider } from './contexts/SavingGoalContext';
 
 export function App(): JSX.Element {
   return (
-    <div className="w-screen h-screen bg-background">
+    <div className="w-screen h-screen overflow-auto bg-background">
       <Header />
-      <main className="flex justify-center">
+      <main className="mt-8 sm:mt-12 flex flex-col items-center">
         <SavingGoalProvider>
           <SavingGoal />
         </SavingGoalProvider>

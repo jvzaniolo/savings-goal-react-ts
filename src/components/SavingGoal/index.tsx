@@ -35,19 +35,19 @@ export function SavingGoal(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <h3 className="text-brand-primary text-xl pb-6 pt-12">
+    <div className="sm:max-w-[40rem]">
+      <h3 className="mb-6 text-center text-lg sm:text-xl text-brand-primary">
         Let&apos;s plan your{' '}
         <strong className="font-semibold">saving goal.</strong>
       </h3>
 
-      <div className="sm:w-[40rem] pt-8 p-10 bg-neutral-white rounded-lg shadow-level4">
+      <div className="pt-8 p-10 rounded-lg shadow-level4 bg-neutral-white">
         <form
-          className="flex flex-col flex-wrap space-y-6"
           onSubmit={handleSubmit}
+          className="flex flex-col flex-wrap space-y-6"
         >
-          <section className="flex space-x-4">
-            <img src={buyAHouseImg} alt="Buy a house" />
+          <section className="flex items-center space-x-4">
+            <img src={buyAHouseImg} alt="Buy a house" width={64} />
             <div className="space-y-1">
               <h1 className="text-2xl font-display font-medium text-blue-gray-800">
                 Buy a house
@@ -57,16 +57,14 @@ export function SavingGoal(): JSX.Element {
           </section>
 
           <div className="flex flex-wrap gap-4">
-            <div className="flex flex-col flex-1">
-              <CurrencyInput
-                id="amount"
-                label="Total amount"
-                icon={
-                  <BsCurrencyDollar size={24} className="text-blue-gray-100" />
-                }
-                onValueChange={(_, __, values) => setAmount(values as Amount)}
-              />
-            </div>
+            <CurrencyInput
+              id="amount"
+              label="Total amount"
+              icon={
+                <BsCurrencyDollar size={24} className="text-blue-gray-100" />
+              }
+              onValueChange={(_, __, values) => setAmount(values as Amount)}
+            />
 
             <ReachDateInput
               id="reach-date"
@@ -76,7 +74,6 @@ export function SavingGoal(): JSX.Element {
               isDisabled={shouldHandlePrevMonth}
               onPrevMonthChange={handlePrevMonth}
               onNextMonthChange={handleNextMonth}
-              className="flex flex-col flex-1"
             />
           </div>
 
@@ -90,7 +87,7 @@ export function SavingGoal(): JSX.Element {
 
           <button
             type="submit"
-            className="sm:max-w-xs w-full mx-auto p-4 !mt-8 rounded-full bg-brand-primary text-neutral-white transition-shadow hover:shadow-md hover:shadow-blue-300"
+            className="w-full sm:max-w-xs !mt-8 p-4 self-center rounded-full transition-shadow bg-brand-primary text-neutral-white hover:shadow-md hover:shadow-blue-300"
           >
             Confirm
           </button>

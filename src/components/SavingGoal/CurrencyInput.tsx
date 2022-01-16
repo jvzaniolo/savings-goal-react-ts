@@ -22,7 +22,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
   CurrencyInputProps
 > = ({ id, label, className, icon, onValueChange }, ref) => {
   return (
-    <>
+    <div className="flex flex-1 flex-col">
       {label && (
         <label htmlFor={id} className="mb-1 text-sm text-blue-gray-800">
           {label}
@@ -48,7 +48,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
           className="flex-1 focus:outline-none"
         />
       </div>
-    </>
+    </div>
   );
 };
 

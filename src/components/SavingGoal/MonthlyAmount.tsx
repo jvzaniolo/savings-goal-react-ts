@@ -15,9 +15,9 @@ export function MonthlyAmount({
 }: MonthlyAmountProps) {
   return (
     <div className="flex flex-col rounded-lg border border-blue-gray-50">
-      <p className="flex justify-between py-6 px-8 items-center">
+      <p className="py-6 px-8 flex justify-between items-center">
         <span className="text-xl text-blue-gray-800">Monthly amount</span>
-        <span className="block text-3xl font-display font-medium text-brand-secondary overflow-hidden whitespace-nowrap text-ellipsis">
+        <span className="block font-display font-medium text-3xl text-ellipsis overflow-hidden whitespace-nowrap text-brand-secondary">
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
@@ -26,7 +26,7 @@ export function MonthlyAmount({
       </p>
 
       <div className="py-6 px-8 bg-blue-gray-10">
-        <span className="text-blue-gray-900 text-sm">
+        <span className="text-sm text-blue-gray-900">
           You&apos;re planning{' '}
           <strong className="font-semibold">
             {monthlyDeposits} monthly deposits

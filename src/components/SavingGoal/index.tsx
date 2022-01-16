@@ -73,7 +73,7 @@ export function SavingGoal(): JSX.Element {
               label="Reach goal by"
               month={month}
               year={year}
-              isDisabled={shouldHandlePrevMonth}
+              isDisabled={!shouldHandlePrevMonth}
               onPrevMonthChange={handlePrevMonth}
               onNextMonthChange={handleNextMonth}
             />

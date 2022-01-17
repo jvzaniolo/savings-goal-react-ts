@@ -1,4 +1,4 @@
-# Origin Frontend Take-Home Assignment
+# Origin Saving Goal Assignment
 
 ![saving-goal gif](https://user-images.githubusercontent.com/54036572/149708026-a22db8d2-8221-4e70-811b-89bca666784f.gif)
 

@@ -8,6 +8,17 @@ interface CurrencyInputProps extends ReactCurrencyInputProps {
   label?: ReactNode;
 }
 
+/**
+ * Auto formatted currency input field
+ *
+ * @example
+ * <CurrencyInput
+ *  id="currency-input"
+ *  label="Salary"
+ *  icon={<ReactIcon size={16} />}
+ *  onValueChange={setMonthlyDeposits}
+ * />
+ */
 const CurrencyInputComponent: ForwardRefRenderFunction<
   HTMLInputElement,
   CurrencyInputProps

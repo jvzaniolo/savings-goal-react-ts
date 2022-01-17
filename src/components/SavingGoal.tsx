@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { Button } from '../layout/Button';
-import { useSavingGoal } from '../hooks/useSavingGoal';
 import { ReachDateInput } from './SavingGoal/ReachDateInput';
 import { CurrencyInput } from './SavingGoal/CurrencyInput';
 import { MonthlyAmountSummary } from './SavingGoal/MonthlyAmountSummary';
@@ -10,13 +9,8 @@ import buyAHouseImg from '../assets/icons/buy-a-house.svg';
 
 export function SavingGoal(): JSX.Element {
   const [amount, setAmount] = useState<number>();
-  const {
-    reachDate,
-    canDecreaseMonth,
-    monthlyDeposits,
-    handleMonthDecrease,
-    handleMonthIncrease,
-  } = useSavingGoal();
+  const [reachDate, setReachDate] = useState('');
+  const [monthlyDeposits, setMonthlyDeposits] = useState(1);
 
   return (
     <div className="sm:max-w-[40rem]">
@@ -50,16 +44,16 @@ export function SavingGoal(): JSX.Element {
             <ReachDateInput
               id="reach-date"
               label="Reach goal by"
-              value={reachDate}
-              disabled={!canDecreaseMonth}
-              onMonthDecrease={handleMonthDecrease}
-              onMonthIncrease={handleMonthIncrease}
+              onChange={({ month, year, monthCounter }) => {
+                setReachDate(`${month} ${year}`);
+                setMonthlyDeposits(monthCounter + 1);
+              }}
             />
           </div>
 
           <MonthlyAmountSummary
-            reachDate={reachDate}
             amount={amount}
+            reachDate={reachDate}
             monthlyDeposits={monthlyDeposits}
           />
 

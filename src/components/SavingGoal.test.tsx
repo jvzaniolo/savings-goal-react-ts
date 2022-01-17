@@ -39,9 +39,7 @@ describe('SavingGoal', () => {
         <strong
           class="font-semibold"
         >
-          January
-           
-          2022
+          January 2022
           .
         </strong>
       </span>
@@ -87,9 +85,7 @@ describe('SavingGoal', () => {
         <strong
           class="font-semibold"
         >
-          March
-           
-          2022
+          March 2022
           .
         </strong>
       </span>

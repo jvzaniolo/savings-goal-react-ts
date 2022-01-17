@@ -192,6 +192,7 @@ Object {
                       data-testid="reach-date-hidden-input"
                       id="reach-date"
                       name="reach-date"
+                      readonly=""
                       type="date"
                       value="2022-01-01"
                     />
@@ -239,9 +240,7 @@ Object {
                       <strong
                         class="font-semibold"
                       >
-                        January
-                         
-                        2022
+                        January 2022
                         .
                       </strong>
                     </span>
@@ -448,6 +447,7 @@ Object {
                     data-testid="reach-date-hidden-input"
                     id="reach-date"
                     name="reach-date"
+                    readonly=""
                     type="date"
                     value="2022-01-01"
                   />
@@ -495,9 +495,7 @@ Object {
                     <strong
                       class="font-semibold"
                     >
-                      January
-                       
-                      2022
+                      January 2022
                       .
                     </strong>
                   </span>

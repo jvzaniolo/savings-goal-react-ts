@@ -1,8 +1,5 @@
 interface MonthlyAmountSummaryProps {
-  reachDate: {
-    month: string;
-    year: number;
-  };
+  reachDate: string;
   amount: number | undefined;
   monthlyDeposits: number;
 }
@@ -56,9 +53,7 @@ export function MonthlyAmountSummary({
             }).format(amount || 0)}
           </strong>
           &nbsp;goal by&nbsp;
-          <strong className="font-semibold">
-            {reachDate.month}&nbsp;{reachDate.year}.
-          </strong>
+          <strong className="font-semibold">{reachDate}.</strong>
         </span>
       </div>
     </div>

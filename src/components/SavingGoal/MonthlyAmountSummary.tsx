@@ -12,10 +12,17 @@ export function MonthlyAmountSummary({
   amount,
   monthlyDeposits,
 }: MonthlyAmountSummaryProps) {
-  function getMonthlyAmount(): number {
-    if (!amount) return 0;
+  function getMonthlyAmountFormatted(): string {
+    let monthlyAmount = 0;
 
-    return amount > 0 ? amount / monthlyDeposits : 0;
+    if (amount) {
+      monthlyAmount = amount > 0 ? amount / monthlyDeposits : 0;
+    }
+
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(monthlyAmount);
   }
 
   return (
@@ -24,11 +31,11 @@ export function MonthlyAmountSummary({
         <span className="text-lg sm:text-xl text-blue-gray-800">
           Monthly amount
         </span>
-        <span className="block font-display font-medium text-2xl sm:text-3xl text-ellipsis overflow-hidden whitespace-nowrap text-brand-secondary">
-          {new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-          }).format(getMonthlyAmount())}
+        <span
+          className="max-w-xs block font-display font-medium text-2xl sm:text-3xl text-ellipsis overflow-hidden whitespace-nowrap text-brand-secondary"
+          title={getMonthlyAmountFormatted()}
+        >
+          {getMonthlyAmountFormatted()}
         </span>
       </p>
 

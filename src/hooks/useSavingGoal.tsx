@@ -15,13 +15,21 @@ const MONTHS = [
   'December',
 ];
 
-export function useSavingGoal() {
+interface UseSavingGoal {
+  reachDate: { monthIndex: number; month: string; year: number };
+  monthlyDeposits: number;
+  canDecreaseMonth: boolean;
+  handleMonthDecrease(): void;
+  handleMonthIncrease(): void;
+}
+
+export function useSavingGoal(): UseSavingGoal {
   const [year, setYear] = useState(new Date().getFullYear());
   const [monthIndex, setMonthIndex] = useState(new Date().getMonth());
   // counter to monthly deposits
   const [monthlyDeposits, setMonthlyDeposits] = useState(1);
 
-  // gets the chosen month name by index
+  // gets the month name by index
   const month = MONTHS[monthIndex];
 
   // the previous action is disabled if the current month is equal the chosen month
@@ -60,7 +68,7 @@ export function useSavingGoal() {
   }
 
   return {
-    reachDate: { month, year },
+    reachDate: { monthIndex, month, year },
     monthlyDeposits,
     canDecreaseMonth,
     handleMonthDecrease,

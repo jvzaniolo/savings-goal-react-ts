@@ -73,6 +73,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
             }`}
             onFocus={() => setHasFocus(true)}
             onBlur={() => setHasFocus(false)}
+            data-testid="left-button"
           >
             <MdKeyboardArrowLeft size={24} className="m-2" />
           </button>
@@ -90,6 +91,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
             className="flex items-center text-center rounded-full transition-colors focus:outline-none text-blue-gray-300 hover:bg-slate-100 "
             onFocus={() => setHasFocus(true)}
             onBlur={() => setHasFocus(false)}
+            data-testid="right-button"
           >
             <MdKeyboardArrowRight size={24} className="m-2 " />
           </button>
@@ -103,6 +105,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
         defaultValue={`${month} ${year}`}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
+        data-testid="hidden-input"
       />
     </div>
   );

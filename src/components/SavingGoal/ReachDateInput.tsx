@@ -1,11 +1,6 @@
+import { forwardRef, useEffect, useState } from 'react';
+import type { ForwardRefRenderFunction, ReactNode } from 'react';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
-import {
-  forwardRef,
-  ForwardRefRenderFunction,
-  ReactNode,
-  useEffect,
-  useState,
-} from 'react';
 
 interface ReachDateInputComponentProps {
   id: string;

@@ -1,6 +1,7 @@
-import { ReactNode, forwardRef, ForwardRefRenderFunction } from 'react';
+import { forwardRef } from 'react';
+import type { ReactNode, ForwardRefRenderFunction } from 'react';
 import ReactCurrencyInputField from 'react-currency-input-field';
-import { CurrencyInputProps as ReactCurrencyInputProps } from 'react-currency-input-field';
+import type { CurrencyInputProps as ReactCurrencyInputProps } from 'react-currency-input-field';
 
 interface CurrencyInputProps extends ReactCurrencyInputProps {
   icon?: ReactNode;

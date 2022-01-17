@@ -5,6 +5,10 @@ describe('Header', () => {
   it('should render the brand logo', () => {
     render(<Header />);
 
-    expect(screen.getByTestId('logo')).toBeInTheDocument();
+    const logo = screen.getByTestId('logo');
+
+    expect(logo).toBeInTheDocument();
+    expect(logo).toHaveAttribute('src', 'logo.svg');
+    expect(logo).toHaveAttribute('alt');
   });
 });

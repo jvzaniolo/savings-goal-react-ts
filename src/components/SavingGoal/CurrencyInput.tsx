@@ -45,12 +45,26 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
           id={id}
           ref={ref}
           name={id}
-          maxLength={15}
           decimalsLimit={2}
+          // Override browser defaults if locale settings are different
+          groupSeparator=","
+          // Override browser defaults if locale settings are different
+          decimalSeparator="."
           onValueChange={onValueChange}
           className="flex-1 focus:outline-none"
           data-testid="currency-input"
         />
+        {/*
+        Would prefer to format it like this
+        So the component can work with locale and Intl.format
+        See open thread https://github.com/cchanxzy/react-currency-input-field/issues/222
+
+        E.g.:
+          <ReactCurrencyInputField
+            prefix=""
+            intlConfig={{ locale: 'en-US', currency: 'USD' }}
+          />
+        */}
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ Insert gif or link to demo
 
 ## Tech Stack
 
-**Client:** ReactJS, TailwindCSS, Jest, Testing Library, [React Currency Input Field](https://github.com/cchanxzy/react-currency-input-field)
+**Client:** ReactJS, TypeScript, TailwindCSS, Jest, Testing Library, React Icons, [React Currency Input Field](https://github.com/cchanxzy/react-currency-input-field).
 
 ## Run Locally
 

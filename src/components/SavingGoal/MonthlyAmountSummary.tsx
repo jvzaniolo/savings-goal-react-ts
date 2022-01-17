@@ -1,18 +1,23 @@
-interface MonthlyAmountProps {
-  month: string;
-  year: number;
+interface MonthlyAmountSummaryProps {
+  reachDate: {
+    month: string;
+    year: number;
+  };
   amount: number | undefined;
-  monthlyAmount: number | undefined;
   monthlyDeposits: number;
 }
 
-export function MonthlyAmount({
-  month,
-  year,
+export function MonthlyAmountSummary({
+  reachDate,
   amount,
-  monthlyAmount,
   monthlyDeposits,
-}: MonthlyAmountProps) {
+}: MonthlyAmountSummaryProps) {
+  function getMonthlyAmount(): number {
+    if (!amount) return 0;
+
+    return amount > 0 ? amount / monthlyDeposits : 0;
+  }
+
   return (
     <div className="flex flex-col rounded-lg border border-blue-gray-50">
       <p className="py-6 px-8 flex justify-between items-center">
@@ -23,7 +28,7 @@ export function MonthlyAmount({
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
-          }).format(monthlyAmount || 0)}
+          }).format(getMonthlyAmount())}
         </span>
       </p>
 
@@ -45,7 +50,7 @@ export function MonthlyAmount({
           </strong>
           &nbsp;goal by&nbsp;
           <strong className="font-semibold">
-            {month}&nbsp;{year}.
+            {reachDate.month}&nbsp;{reachDate.year}.
           </strong>
         </span>
       </div>

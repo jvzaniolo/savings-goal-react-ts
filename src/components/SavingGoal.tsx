@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { Button } from '../layout/Button';
-import { useSavingGoal } from '../hooks/SavingGoal';
+import { useSavingGoal } from '../hooks/useSavingGoal';
 import { ReachDateInput } from './SavingGoal/ReachDateInput';
 import { CurrencyInput } from './SavingGoal/CurrencyInput';
 import { MonthlyAmountSummary } from './SavingGoal/MonthlyAmountSummary';

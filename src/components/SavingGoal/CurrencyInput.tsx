@@ -16,7 +16,7 @@ interface CurrencyInputProps extends ReactCurrencyInputProps {
  *  id="currency-input"
  *  label="Salary"
  *  icon={<ReactIcon size={16} />}
- *  onValueChange={setMonthlyDeposits}
+ *  onValueChange={(value) => console.log(value)}
  * />
  */
 const CurrencyInputComponent: ForwardRefRenderFunction<
@@ -48,7 +48,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
           ref={ref}
           name={id}
           step={1}
-          maxLength={17}
+          maxLength={16}
           decimalsLimit={2}
           onValueChange={onValueChange}
           className="flex-1 focus:outline-none"

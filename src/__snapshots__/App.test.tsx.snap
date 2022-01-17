@@ -98,7 +98,6 @@ Object {
                       </span>
                       <input
                         class="flex-1 focus:outline-none"
-                        data-testid="currency-input"
                         id="amount"
                         inputmode="decimal"
                         name="amount"
@@ -354,7 +353,6 @@ Object {
                     </span>
                     <input
                       class="flex-1 focus:outline-none"
-                      data-testid="currency-input"
                       id="amount"
                       inputmode="decimal"
                       name="amount"

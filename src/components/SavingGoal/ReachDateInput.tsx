@@ -10,8 +10,14 @@ interface ReachDateInputProps
     year: number;
   };
   label?: ReactNode;
-  onMonthDecrease(): void;
-  onMonthIncrease(): void;
+  onChange: () => { onIncrease: () => void; onDecrease: () => void };
+}
+
+function formatInputValue(value: { monthIndex: number; year: number }) {
+  const formattedMonthIndex =
+    value.monthIndex < 10 ? `0${value.monthIndex + 1}` : value.monthIndex + 1;
+
+  return `${value.year}-${formattedMonthIndex}-01`;
 }
 
 /**
@@ -26,39 +32,23 @@ interface ReachDateInputProps
  *  id="reach-date"
  *  label="Reach goal by"
  *  value={{ monthIndex: 0, month: 'January', year: 2022 }}
- *  onMonthDecrease={() => {}}
- *  onMonthIncrease={() => {}}
+ *  onChange={() => ({
+ *   onIncrement: () => void;
+ *   onDecrement: () => void;
+ *  })}
  * />
  */
 const ReachDateInputComponent: ForwardRefRenderFunction<
   HTMLInputElement,
   ReachDateInputProps
-> = (
-  {
-    id,
-    className,
-    label,
-    value,
-    disabled,
-    onMonthDecrease,
-    onMonthIncrease,
-    ...rest
-  },
-  ref
-) => {
+> = ({ id, className, label, value, disabled, onChange, ...rest }, ref) => {
   const [hasFocus, setHasFocus] = useState(false);
-
-  function formatInputValue() {
-    const formattedMonthIndex =
-      value.monthIndex < 10 ? `0${value.monthIndex + 1}` : value.monthIndex + 1;
-
-    return `${value.year}-${formattedMonthIndex}-01`;
-  }
+  const { onDecrease, onIncrease } = onChange();
 
   useEffect(() => {
     function eventListener(event: KeyboardEvent) {
-      if (event.key === 'ArrowLeft') onMonthDecrease();
-      if (event.key === 'ArrowRight') onMonthIncrease();
+      if (event.key === 'ArrowLeft') onDecrease();
+      if (event.key === 'ArrowRight') onIncrease();
     }
 
     if (hasFocus) {
@@ -66,7 +56,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
     }
 
     return () => window.removeEventListener('keydown', eventListener);
-  }, [hasFocus, onMonthDecrease, onMonthIncrease]);
+  }, [hasFocus, onDecrease, onIncrease]);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -84,7 +74,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
           <button
             type="button"
             tabIndex={2}
-            onClick={onMonthDecrease}
+            onClick={onDecrease}
             className={`w-10 h-10 text-center rounded-full transition-colors focus:outline-none ${
               disabled
                 ? 'text-blue-gray-50 hover:bg-transparent cursor-not-allowed'
@@ -106,7 +96,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
           <button
             type="button"
             tabIndex={3}
-            onClick={onMonthIncrease}
+            onClick={onIncrease}
             className="flex items-center text-center rounded-full transition-colors focus:outline-none text-blue-gray-300 hover:bg-slate-100 "
             onFocus={() => setHasFocus(true)}
             onBlur={() => setHasFocus(false)}
@@ -123,12 +113,11 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
         {...rest}
         type="date"
         className="absolute -left-full opacity-0"
-        value={formatInputValue()}
+        value={formatInputValue(value)}
+        onChange={() => formatInputValue(value)}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
         data-testid="reach-date-hidden-input"
-        // fix for property value without onChange function
-        readOnly
       />
     </div>
   );

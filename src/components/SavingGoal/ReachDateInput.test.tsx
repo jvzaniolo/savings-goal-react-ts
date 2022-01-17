@@ -13,8 +13,10 @@ function ReachDateInputHookWrapper() {
       label="Reach goal by"
       value={results.reachDate}
       disabled={!results.canDecreaseMonth}
-      onMonthDecrease={results.handleMonthDecrease}
-      onMonthIncrease={results.handleMonthIncrease}
+      onChange={() => ({
+        onDecrease: results.handleMonthDecrease,
+        onIncrease: results.handleMonthIncrease,
+      })}
     />
   );
 }

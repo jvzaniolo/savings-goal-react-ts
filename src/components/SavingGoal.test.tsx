@@ -14,8 +14,8 @@ describe('SavingGoal', () => {
     const reachDateInput = screen.getByTestId('reach-date-hidden-input');
     const monthlyAmountSummary = screen.getByTestId('monthly-amount-summary');
 
-    expect(reachDateInput).toHaveValue('2022-01-01'); // initial Date
     expect(amountInput).toHaveValue('');
+    expect(reachDateInput).toHaveValue('2022-01-01'); // initial Date
     expect(screen.getAllByText('$0.00')).toHaveLength(2); // One for strong text and one for monthly summary
     expect(monthlyAmountSummary).toMatchInlineSnapshot(`
       <span
@@ -62,8 +62,8 @@ describe('SavingGoal', () => {
     fireEvent.click(reachDateIncrementBtn); // increase to February 2022
     fireEvent.click(reachDateIncrementBtn); // increase to March 2022
 
-    expect(reachDateInput).toHaveValue('2022-03-01');
     expect(amountInput).toHaveValue('1,300,450.56');
+    expect(reachDateInput).toHaveValue('2022-03-01');
     expect(screen.getByText('$1,300,450.56')).toBeInTheDocument();
     expect(monthlyAmountSummary).toMatchInlineSnapshot(`
       <span

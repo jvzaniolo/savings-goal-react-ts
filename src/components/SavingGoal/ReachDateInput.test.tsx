@@ -1,12 +1,13 @@
 import { ReachDateInput } from './ReachDateInput';
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 const reachDateInputProps = {
-  month: 'January',
-  year: 2022,
+  value: { month: 'January', year: 2022 },
   isDisabled: true,
-  onNextMonthChange: jest.fn(),
-  onPrevMonthChange: jest.fn(),
+  id: 'reach-date',
+  label: 'label',
+  onMonthDecrease: jest.fn(),
+  onMonthIncrease: jest.fn(),
 };
 
 describe('ReachDateInput', () => {
@@ -26,46 +27,52 @@ describe('ReachDateInput', () => {
   });
 
   describe('onClick', () => {
-    it('should be able to call next month change when clicking right button', async () => {
+    it('should be able to increase month when clicking right button', async () => {
       render(<ReachDateInput {...reachDateInputProps} />);
 
       fireEvent.click(screen.getByTestId('right-button'));
 
-      await waitFor(() => screen.getByText('February'));
-
-      expect(reachDateInputProps.onNextMonthChange).toHaveBeenCalledTimes(1);
+      expect(reachDateInputProps.onMonthIncrease).toHaveBeenCalledTimes(1);
     });
 
-    it('should be able to call previous month change when clicking left button', async () => {
+    it('should be able to decrease month when clicking left button', async () => {
       render(<ReachDateInput {...reachDateInputProps} />);
 
       fireEvent.click(screen.getByTestId('left-button'));
 
-      expect(reachDateInputProps.onPrevMonthChange).toHaveBeenCalledTimes(1);
+      expect(reachDateInputProps.onMonthDecrease).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('onKeydown', () => {
-    beforeEach(() => {
+    it('should be able to increase month when clicking right arrow on keyboard', async () => {
       render(<ReachDateInput {...reachDateInputProps} />);
 
-      screen.getByTestId('hidden-input').focus();
-    });
+      fireEvent.focus(screen.getByTestId('hidden-input'));
 
-    it('should be able to call next month change when clicking right arrow on keyboard', async () => {
       fireEvent.keyDown(screen.getByTestId('right-button'), {
         key: 'ArrowRight',
+        code: 'ArrowRight',
+        charCode: 0,
+        keyCode: 39,
       });
 
-      expect(reachDateInputProps.onNextMonthChange).toHaveBeenCalledTimes(1);
+      expect(reachDateInputProps.onMonthIncrease).toHaveBeenCalledTimes(1);
     });
 
-    it('should be able to call previous month change when clicking left arrow on keyboard', async () => {
+    it('should be able to decrease month when clicking left arrow on keyboard', async () => {
+      render(<ReachDateInput {...reachDateInputProps} />);
+
+      fireEvent.focus(screen.getByTestId('hidden-input'));
+
       fireEvent.keyDown(screen.getByTestId('left-button'), {
         key: 'ArrowLeft',
+        code: 'ArrowLeft',
+        charCode: 0,
+        keyCode: 37,
       });
 
-      expect(reachDateInputProps.onPrevMonthChange).toHaveBeenCalledTimes(1);
+      expect(reachDateInputProps.onMonthDecrease).toHaveBeenCalledTimes(1);
     });
   });
 });

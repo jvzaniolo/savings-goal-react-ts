@@ -1,5 +1,5 @@
 import { ReactNode, forwardRef, ForwardRefRenderFunction } from 'react';
-import CurrencyInputField from 'react-currency-input-field';
+import ReactCurrencyInputField from 'react-currency-input-field';
 import { CurrencyInputProps as ReactCurrencyInputProps } from 'react-currency-input-field';
 
 interface CurrencyInputProps extends ReactCurrencyInputProps {
@@ -31,7 +31,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
             {icon}
           </span>
         )}
-        <CurrencyInputField
+        <ReactCurrencyInputField
           id={id}
           ref={ref}
           name={id}

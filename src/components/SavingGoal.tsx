@@ -1,38 +1,22 @@
-import { FormEvent, useState } from 'react';
-import { useSavingGoal } from '../../contexts/SavingGoalContext';
-import { ReachDateInput } from './ReachDateInput';
-import { MonthlyAmount } from './MonthlyAmount';
-import { CurrencyInput } from './CurrencyInput';
+import { useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
+import { Button } from '../layout/Button';
+import { useSavingGoal } from '../hooks/SavingGoal';
+import { ReachDateInput } from './SavingGoal/ReachDateInput';
+import { CurrencyInput } from './SavingGoal/CurrencyInput';
+import { MonthlyAmountSummary } from './SavingGoal/MonthlyAmountSummary';
 
-import buyAHouseImg from '../../assets/icons/buy-a-house.svg';
-
-interface Amount {
-  float: number;
-  formatted: string;
-  value: string;
-}
+import buyAHouseImg from '../assets/icons/buy-a-house.svg';
 
 export function SavingGoal(): JSX.Element {
-  const [amount, setAmount] = useState<Amount | undefined>(undefined);
+  const [amount, setAmount] = useState<number>();
   const {
-    month,
-    year,
-    shouldHandlePrevMonth,
+    reachDate,
+    shouldDecreaseMonth,
     monthlyDeposits,
-    handlePrevMonth,
-    handleNextMonth,
+    handleMonthDecrease,
+    handleMonthIncrease,
   } = useSavingGoal();
-
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-  }
-
-  function handleMonthlyAmount(): number {
-    if (!amount) return 0;
-
-    return amount.float > 0 ? amount.float / monthlyDeposits : 0;
-  }
 
   return (
     <div className="sm:max-w-[40rem]">
@@ -43,7 +27,7 @@ export function SavingGoal(): JSX.Element {
 
       <div className="pt-8 p-10 rounded-lg shadow-level4 bg-neutral-white">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={(e) => e.preventDefault()}
           className="flex flex-col flex-wrap space-y-6"
         >
           <section className="flex items-center space-x-4">
@@ -63,34 +47,31 @@ export function SavingGoal(): JSX.Element {
               id="amount"
               label="Total amount"
               icon={<BsCurrencyDollar size={24} />}
-              onValueChange={(_, __, values) => setAmount(values as Amount)}
+              onValueChange={(value) => setAmount(parseFloat(String(value)))}
             />
 
             <ReachDateInput
               id="reach-date"
               label="Reach goal by"
-              month={month}
-              year={year}
-              isDisabled={!shouldHandlePrevMonth}
-              onPrevMonthChange={handlePrevMonth}
-              onNextMonthChange={handleNextMonth}
+              value={reachDate}
+              isDisabled={!shouldDecreaseMonth}
+              onMonthDecrease={handleMonthDecrease}
+              onMonthIncrease={handleMonthIncrease}
             />
           </div>
 
-          <MonthlyAmount
-            month={month}
-            year={year}
-            amount={amount?.float}
-            monthlyAmount={handleMonthlyAmount()}
+          <MonthlyAmountSummary
+            reachDate={reachDate}
+            amount={amount}
             monthlyDeposits={monthlyDeposits}
           />
 
-          <button
+          <Button
             type="submit"
-            className="w-full sm:max-w-xs !mt-8 p-4 self-center rounded-full transition-shadow bg-brand-primary text-neutral-white hover:shadow-md hover:shadow-blue-300"
+            className="w-full sm:max-w-xs !mt-8 self-center"
           >
             Confirm
-          </button>
+          </Button>
         </form>
       </div>
     </div>

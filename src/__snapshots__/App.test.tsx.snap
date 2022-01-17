@@ -77,13 +77,12 @@ Object {
                       Total amount
                     </label>
                     <div
-                      class="pl-1 p-3 group h-14 flex flex-nowrap items-center space-x-1 rounded border font-display font-medium text-xl sm:text-2xl border-blue-gray-50 text-blue-gray-600 transition-colors overflow-hidden focus-within:outline focus-within:outline-blue-600 focus-within:outline-2 undefined"
+                      class="pl-1 p-3 group h-14 flex flex-nowrap items-center space-x-1 rounded border font-display font-medium text-xl sm:text-2xl border-blue-gray-50 text-blue-gray-600 transition-colors overflow-hidden focus-within:outline focus-within:outline-brand-secondary focus-within:outline-2 undefined"
                     >
                       <span
-                        class="transition-colors group-focus-within:text-blue-700"
+                        class="transition-colors text-blue-gray-100 group-focus-within:text-brand-secondary"
                       >
                         <svg
-                          class="text-blue-gray-100"
                           fill="currentColor"
                           height="24"
                           stroke="currentColor"
@@ -194,7 +193,8 @@ Object {
                       data-testid="hidden-input"
                       id="reach-date"
                       name="reach-date"
-                      value="January 2022"
+                      readonly=""
+                      value="January,2022"
                     />
                   </div>
                 </div>
@@ -248,7 +248,7 @@ Object {
                   </div>
                 </div>
                 <button
-                  class="w-full sm:max-w-xs !mt-8 p-4 self-center rounded-full transition-shadow bg-brand-primary text-neutral-white hover:shadow-md hover:shadow-blue-300"
+                  class="w-full sm:max-w-xs !mt-8 self-center p-4 rounded-full transition-shadow bg-brand-primary text-white hover:shadow-md hover:shadow-blue-300 focus:outline-brand-secondary"
                   type="submit"
                 >
                   Confirm
@@ -333,13 +333,12 @@ Object {
                     Total amount
                   </label>
                   <div
-                    class="pl-1 p-3 group h-14 flex flex-nowrap items-center space-x-1 rounded border font-display font-medium text-xl sm:text-2xl border-blue-gray-50 text-blue-gray-600 transition-colors overflow-hidden focus-within:outline focus-within:outline-blue-600 focus-within:outline-2 undefined"
+                    class="pl-1 p-3 group h-14 flex flex-nowrap items-center space-x-1 rounded border font-display font-medium text-xl sm:text-2xl border-blue-gray-50 text-blue-gray-600 transition-colors overflow-hidden focus-within:outline focus-within:outline-brand-secondary focus-within:outline-2 undefined"
                   >
                     <span
-                      class="transition-colors group-focus-within:text-blue-700"
+                      class="transition-colors text-blue-gray-100 group-focus-within:text-brand-secondary"
                     >
                       <svg
-                        class="text-blue-gray-100"
                         fill="currentColor"
                         height="24"
                         stroke="currentColor"
@@ -450,7 +449,8 @@ Object {
                     data-testid="hidden-input"
                     id="reach-date"
                     name="reach-date"
-                    value="January 2022"
+                    readonly=""
+                    value="January,2022"
                   />
                 </div>
               </div>
@@ -504,7 +504,7 @@ Object {
                 </div>
               </div>
               <button
-                class="w-full sm:max-w-xs !mt-8 p-4 self-center rounded-full transition-shadow bg-brand-primary text-neutral-white hover:shadow-md hover:shadow-blue-300"
+                class="w-full sm:max-w-xs !mt-8 self-center p-4 rounded-full transition-shadow bg-brand-primary text-white hover:shadow-md hover:shadow-blue-300 focus:outline-brand-secondary"
                 type="submit"
               >
                 Confirm

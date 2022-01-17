@@ -1,20 +1,10 @@
-import {
-  ReactNode,
-  forwardRef,
-  ForwardRefRenderFunction,
-  InputHTMLAttributes,
-} from 'react';
+import { ReactNode, forwardRef, ForwardRefRenderFunction } from 'react';
 import CurrencyInputField from 'react-currency-input-field';
-import { CurrencyInputOnChangeValues } from 'react-currency-input-field/dist/components/CurrencyInputProps';
+import { CurrencyInputProps as ReactCurrencyInputProps } from 'react-currency-input-field';
 
-interface CurrencyInputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface CurrencyInputProps extends ReactCurrencyInputProps {
   icon?: ReactNode;
   label?: ReactNode;
-  onValueChange: (
-    value: string | undefined,
-    name?: string | undefined,
-    values?: CurrencyInputOnChangeValues | undefined
-  ) => void;
 }
 
 const CurrencyInputComponent: ForwardRefRenderFunction<
@@ -46,17 +36,16 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
           ref={ref}
           name={id}
           decimalsLimit={2}
+          onValueChange={onValueChange}
+          className="flex-1 focus:outline-none"
+          data-testid="currency-input"
           // Override browser defaults if locale settings are different
           groupSeparator=","
           // Override browser defaults if locale settings are different
           decimalSeparator="."
-          onValueChange={onValueChange}
-          className="flex-1 focus:outline-none"
-          data-testid="currency-input"
         />
         {/*
-        Would prefer to format it like this
-        So the component can work with locale and Intl.format
+        Would prefer to format it with locale and Intl.NumberFormat
         See open thread https://github.com/cchanxzy/react-currency-input-field/issues/222
 
         E.g.:

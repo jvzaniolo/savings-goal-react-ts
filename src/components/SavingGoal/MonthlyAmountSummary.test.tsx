@@ -1,24 +1,23 @@
 /* eslint-disable no-irregular-whitespace */
-import { MonthlyAmount } from './MonthlyAmount';
+import { MonthlyAmountSummary } from './MonthlyAmountSummary';
 import { render, screen } from '@testing-library/react';
 
-const monthlyAmountProps = {
-  month: 'February',
-  year: 2022,
+const monthlyAmountSummaryProps = {
+  reachDate: { month: 'February', year: 2022 },
   amount: 10000.0,
   monthlyDeposits: 2,
   monthlyAmount: 10000.0 / 2,
 };
 
-describe('Monthly Amount', () => {
+describe('Monthly Amount Summary', () => {
   it('should be able to display the monthly amount in USD currency format', () => {
-    render(<MonthlyAmount {...monthlyAmountProps} />);
+    render(<MonthlyAmountSummary {...monthlyAmountSummaryProps} />);
 
     expect(screen.getByText('$5,000.00')).toBeInTheDocument();
   });
 
   it('should be able to display a monthly amount summary', () => {
-    render(<MonthlyAmount {...monthlyAmountProps} />);
+    render(<MonthlyAmountSummary {...monthlyAmountSummaryProps} />);
 
     expect(screen.getByTestId('monthly-amount-summary')).toMatchInlineSnapshot(`
       <span
@@ -29,7 +28,7 @@ describe('Monthly Amount', () => {
         <strong
           class="font-semibold"
         >
-          2
+          ${monthlyAmountSummaryProps.monthlyDeposits}
            monthly deposits 
         </strong>
         to reach your 
@@ -42,9 +41,9 @@ describe('Monthly Amount', () => {
         <strong
           class="font-semibold"
         >
-          February
+          ${monthlyAmountSummaryProps.reachDate.month}
            
-          2022
+          ${monthlyAmountSummaryProps.reachDate.year}
           .
         </strong>
       </span>

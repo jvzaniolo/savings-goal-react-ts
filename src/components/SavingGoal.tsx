@@ -12,7 +12,7 @@ export function SavingGoal(): JSX.Element {
   const [amount, setAmount] = useState<number>();
   const {
     reachDate,
-    shouldDecreaseMonth,
+    canDecreaseMonth,
     monthlyDeposits,
     handleMonthDecrease,
     handleMonthIncrease,
@@ -54,7 +54,7 @@ export function SavingGoal(): JSX.Element {
               id="reach-date"
               label="Reach goal by"
               value={reachDate}
-              isDisabled={!shouldDecreaseMonth}
+              isDisabled={!canDecreaseMonth}
               onMonthDecrease={handleMonthDecrease}
               onMonthIncrease={handleMonthIncrease}
             />

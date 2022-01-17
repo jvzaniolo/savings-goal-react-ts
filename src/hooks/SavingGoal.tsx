@@ -26,11 +26,11 @@ export function useSavingGoal() {
 
   // the previous action is disabled if the current month is equal the chosen month
   // and the current year is equal to the chosen year
-  const shouldDecreaseMonth =
+  const canDecreaseMonth =
     new Date().getMonth() !== monthIndex || new Date().getFullYear() !== year;
 
   function handleMonthDecrease() {
-    if (!shouldDecreaseMonth) return;
+    if (!canDecreaseMonth) return;
 
     setMonthlyDeposits(monthlyDeposits - 1);
 
@@ -62,7 +62,7 @@ export function useSavingGoal() {
   return {
     reachDate: { month, year },
     monthlyDeposits,
-    shouldDecreaseMonth,
+    canDecreaseMonth,
     handleMonthDecrease,
     handleMonthIncrease,
   };

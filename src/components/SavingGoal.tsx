@@ -26,10 +26,7 @@ export function SavingGoal(): JSX.Element {
       </h3>
 
       <div className="pt-8 p-10 rounded-lg shadow-level4 bg-neutral-white">
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="flex flex-col flex-wrap space-y-6"
-        >
+        <form className="flex flex-col flex-wrap space-y-6">
           <section className="flex items-center space-x-4">
             <img src={buyAHouseImg} alt="Buy a house" width={64} />
             <div className="space-y-1">

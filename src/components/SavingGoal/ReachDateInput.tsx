@@ -59,7 +59,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
         )}
         <div
           className={`h-14 py-1 px-2 flex rounded border items-center border-blue-gray-50 ${
-            hasFocus ? 'outline outline-2 outline-blue-600' : ''
+            hasFocus ? 'outline outline-2 outline-brand-secondary' : ''
           } ${className}`}
         >
           <button

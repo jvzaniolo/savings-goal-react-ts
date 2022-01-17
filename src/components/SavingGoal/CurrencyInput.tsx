@@ -34,10 +34,10 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
       <div
         className={`${
           icon ? 'pl-1 p-3' : 'p-3'
-        } group h-14 flex flex-nowrap items-center space-x-1 rounded border font-display font-medium text-xl sm:text-2xl border-blue-gray-50 text-blue-gray-600 transition-colors overflow-hidden focus-within:outline focus-within:outline-blue-600 focus-within:outline-2 ${className}`}
+        } group h-14 flex flex-nowrap items-center space-x-1 rounded border font-display font-medium text-xl sm:text-2xl border-blue-gray-50 text-blue-gray-600 transition-colors overflow-hidden focus-within:outline focus-within:outline-brand-secondary focus-within:outline-2 ${className}`}
       >
         {icon && (
-          <span className="transition-colors group-focus-within:text-blue-700">
+          <span className="transition-colors text-blue-gray-100 group-focus-within:text-brand-secondary">
             {icon}
           </span>
         )}
@@ -45,12 +45,26 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
           id={id}
           ref={ref}
           name={id}
-          maxLength={15}
           decimalsLimit={2}
+          // Override browser defaults if locale settings are different
+          groupSeparator=","
+          // Override browser defaults if locale settings are different
+          decimalSeparator="."
           onValueChange={onValueChange}
           className="flex-1 focus:outline-none"
           data-testid="currency-input"
         />
+        {/*
+        Would prefer to format it like this
+        So the component can work with locale and Intl.format
+        See open thread https://github.com/cchanxzy/react-currency-input-field/issues/222
+
+        E.g.:
+          <ReactCurrencyInputField
+            prefix=""
+            intlConfig={{ locale: 'en-US', currency: 'USD' }}
+          />
+        */}
       </div>
     </div>
   );

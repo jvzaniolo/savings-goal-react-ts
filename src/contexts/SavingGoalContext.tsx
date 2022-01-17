@@ -41,7 +41,7 @@ export function SavingGoalProvider({ children }: { children: JSX.Element }) {
   // the previous action is disabled if the current month is equal the chosen month
   // and the current year is equal to the chosen year
   const shouldHandlePrevMonth =
-    new Date().getMonth() !== monthIndex && new Date().getFullYear() !== year;
+    new Date().getMonth() !== monthIndex || new Date().getFullYear() !== year;
 
   function handlePrevMonth() {
     if (!shouldHandlePrevMonth) return;

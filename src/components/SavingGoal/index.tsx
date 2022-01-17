@@ -62,9 +62,7 @@ export function SavingGoal(): JSX.Element {
             <CurrencyInput
               id="amount"
               label="Total amount"
-              icon={
-                <BsCurrencyDollar size={24} className="text-blue-gray-100" />
-              }
+              icon={<BsCurrencyDollar size={24} />}
               onValueChange={(_, __, values) => setAmount(values as Amount)}
             />
 

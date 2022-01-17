@@ -2,27 +2,58 @@ import { forwardRef, useEffect, useState } from 'react';
 import type { ForwardRefRenderFunction, ReactNode } from 'react';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
-interface ReachDateInputComponentProps {
-  id: string;
-  className?: string;
+interface ReachDateInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value'> {
   value: {
+    monthIndex: number;
     month: string;
     year: number;
   };
   label?: ReactNode;
-  isDisabled: boolean;
   onMonthDecrease(): void;
   onMonthIncrease(): void;
 }
 
+/**
+ * A custom date input with a button to increase/decrease the month and year.
+ *
+ * It receives a value object and returns a Date as string with the format 'yyyy-MM-dd' as a normal date input would.
+ *
+ * @example
+ * formData.get('reach-date') // '2022-01-01'
+ *
+ * <ReachDateInput
+ *  id="reach-date"
+ *  label="Reach goal by"
+ *  value={{ monthIndex: 0, month: 'January', year: 2022 }}
+ *  onMonthDecrease={() => {}}
+ *  onMonthIncrease={() => {}}
+ * />
+ */
 const ReachDateInputComponent: ForwardRefRenderFunction<
   HTMLInputElement,
-  ReachDateInputComponentProps
+  ReachDateInputProps
 > = (
-  { id, className, label, value, isDisabled, onMonthDecrease, onMonthIncrease },
+  {
+    id,
+    className,
+    label,
+    value,
+    disabled,
+    onMonthDecrease,
+    onMonthIncrease,
+    ...rest
+  },
   ref
 ) => {
   const [hasFocus, setHasFocus] = useState(false);
+
+  function formatInputValue() {
+    const formattedMonthIndex =
+      value.monthIndex < 10 ? `0${value.monthIndex + 1}` : value.monthIndex + 1;
+
+    return `${value.year}-${formattedMonthIndex}-01`;
+  }
 
   useEffect(() => {
     function eventListener(event: KeyboardEvent) {
@@ -55,7 +86,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
             tabIndex={2}
             onClick={onMonthDecrease}
             className={`w-10 h-10 text-center rounded-full transition-colors focus:outline-none ${
-              isDisabled
+              disabled
                 ? 'text-blue-gray-50 hover:bg-transparent cursor-not-allowed'
                 : 'text-blue-gray-300 hover:bg-slate-100'
             }`}
@@ -89,8 +120,10 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
         ref={ref}
         id={id}
         name={id}
+        {...rest}
+        type="date"
         className="absolute -left-full opacity-0"
-        value={`${value.month},${value.year}`}
+        value={formatInputValue()}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
         data-testid="reach-date-hidden-input"

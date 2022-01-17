@@ -51,7 +51,7 @@ export function SavingGoal(): JSX.Element {
               id="reach-date"
               label="Reach goal by"
               value={reachDate}
-              isDisabled={!canDecreaseMonth}
+              disabled={!canDecreaseMonth}
               onMonthDecrease={handleMonthDecrease}
               onMonthIncrease={handleMonthIncrease}
             />

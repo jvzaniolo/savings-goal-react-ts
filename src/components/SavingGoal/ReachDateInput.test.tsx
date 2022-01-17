@@ -12,7 +12,7 @@ function ReachDateInputHookWrapper() {
       id="reach-date"
       label="Reach goal by"
       value={results.reachDate}
-      isDisabled={!results.canDecreaseMonth}
+      disabled={!results.canDecreaseMonth}
       onMonthDecrease={results.handleMonthDecrease}
       onMonthIncrease={results.handleMonthIncrease}
     />

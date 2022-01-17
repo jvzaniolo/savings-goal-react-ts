@@ -38,7 +38,6 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
           decimalsLimit={2}
           onValueChange={onValueChange}
           className="flex-1 focus:outline-none"
-          data-testid="currency-input"
           // Override browser defaults if locale settings are different
           groupSeparator=","
           // Override browser defaults if locale settings are different

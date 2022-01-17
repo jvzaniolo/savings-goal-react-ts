@@ -3,22 +3,38 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 describe('Currency Input', () => {
   it('should be able to display the text in currency format', () => {
-    render(<CurrencyInput onValueChange={jest.fn()} />);
+    render(
+      <CurrencyInput
+        id="currency"
+        label="Total amount"
+        onValueChange={jest.fn()}
+      />
+    );
 
-    fireEvent.change(screen.getByTestId('currency-input'), {
+    const currencyInput = screen.getByLabelText(/total amount/i);
+
+    fireEvent.change(currencyInput, {
       target: {
         value: '3500.45',
       },
     });
 
-    expect(screen.getByTestId('currency-input')).toHaveValue('3,500.45');
+    expect(currencyInput).toHaveValue('3,500.45');
   });
 
   it('should be able to call the change function with the correct parsed values', () => {
     const onValueChange = jest.fn();
-    render(<CurrencyInput id="currency" onValueChange={onValueChange} />);
+    render(
+      <CurrencyInput
+        id="currency"
+        label="Total amount"
+        onValueChange={onValueChange}
+      />
+    );
 
-    fireEvent.change(screen.getByTestId('currency-input'), {
+    const currencyInput = screen.getByLabelText(/total amount/i);
+
+    fireEvent.change(currencyInput, {
       target: {
         value: '3500.45',
       },
@@ -32,26 +48,42 @@ describe('Currency Input', () => {
   });
 
   it('should NOT be able to allow inputs other than numbers', () => {
-    render(<CurrencyInput onValueChange={jest.fn()} />);
+    render(
+      <CurrencyInput
+        id="currency"
+        label="Total amount"
+        onValueChange={jest.fn()}
+      />
+    );
 
-    fireEvent.change(screen.getByTestId('currency-input'), {
+    const currencyInput = screen.getByLabelText(/total amount/i);
+
+    fireEvent.change(currencyInput, {
       target: {
-        value: 'abc',
+        value: 'abc?<>',
       },
     });
 
-    expect(screen.getByTestId('currency-input')).toHaveValue('');
+    expect(currencyInput).toHaveValue('');
   });
 
   it('should NOT be able to format more than 2 decimal digits', () => {
-    render(<CurrencyInput onValueChange={jest.fn()} />);
+    render(
+      <CurrencyInput
+        id="currency"
+        label="Total amount"
+        onValueChange={jest.fn()}
+      />
+    );
 
-    fireEvent.change(screen.getByTestId('currency-input'), {
+    const currencyInput = screen.getByLabelText(/total amount/i);
+
+    fireEvent.change(currencyInput, {
       target: {
         value: '3500.45678',
       },
     });
 
-    expect(screen.getByTestId('currency-input')).toHaveValue('3,500.45');
+    expect(currencyInput).toHaveValue('3,500.45');
   });
 });

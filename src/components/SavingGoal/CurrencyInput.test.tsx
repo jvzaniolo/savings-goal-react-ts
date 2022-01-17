@@ -24,6 +24,7 @@ describe('Currency Input', () => {
 
   it('should be able to call the change function with the correct parsed values', () => {
     const onValueChange = jest.fn();
+
     render(
       <CurrencyInput
         id="currency"

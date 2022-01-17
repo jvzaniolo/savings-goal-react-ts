@@ -193,7 +193,8 @@ Object {
                       id="reach-date"
                       name="reach-date"
                       readonly=""
-                      value="January,2022"
+                      type="date"
+                      value="2022-01-01"
                     />
                   </div>
                 </div>
@@ -448,7 +449,8 @@ Object {
                     id="reach-date"
                     name="reach-date"
                     readonly=""
-                    value="January,2022"
+                    type="date"
+                    value="2022-01-01"
                   />
                 </div>
               </div>

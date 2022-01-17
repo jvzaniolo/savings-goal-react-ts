@@ -8,7 +8,7 @@ export function Button({ type = 'button', className, children }: ButtonProps) {
   return (
     <button
       type={type}
-      className={`${className} p-4 rounded-full transition-shadow bg-brand-primary text-white hover:shadow-md hover:shadow-blue-300`}
+      className={`${className} p-4 rounded-full transition-shadow bg-brand-primary text-white hover:shadow-md hover:shadow-blue-300 focus:outline-brand-secondary`}
     >
       {children}
     </button>

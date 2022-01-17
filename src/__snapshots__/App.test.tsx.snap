@@ -123,7 +123,7 @@ Object {
                       >
                         <button
                           class="w-10 h-10 text-center rounded-full transition-colors focus:outline-none text-blue-gray-50 hover:bg-transparent cursor-not-allowed"
-                          data-testid="left-button"
+                          data-testid="reach-date-left-button"
                           tabindex="2"
                           type="button"
                         >
@@ -162,7 +162,7 @@ Object {
                         </section>
                         <button
                           class="flex items-center text-center rounded-full transition-colors focus:outline-none text-blue-gray-300 hover:bg-slate-100 "
-                          data-testid="right-button"
+                          data-testid="reach-date-right-button"
                           tabindex="3"
                           type="button"
                         >
@@ -189,7 +189,7 @@ Object {
                     </label>
                     <input
                       class="absolute -left-full opacity-0"
-                      data-testid="hidden-input"
+                      data-testid="reach-date-hidden-input"
                       id="reach-date"
                       name="reach-date"
                       readonly=""
@@ -378,7 +378,7 @@ Object {
                     >
                       <button
                         class="w-10 h-10 text-center rounded-full transition-colors focus:outline-none text-blue-gray-50 hover:bg-transparent cursor-not-allowed"
-                        data-testid="left-button"
+                        data-testid="reach-date-left-button"
                         tabindex="2"
                         type="button"
                       >
@@ -417,7 +417,7 @@ Object {
                       </section>
                       <button
                         class="flex items-center text-center rounded-full transition-colors focus:outline-none text-blue-gray-300 hover:bg-slate-100 "
-                        data-testid="right-button"
+                        data-testid="reach-date-right-button"
                         tabindex="3"
                         type="button"
                       >
@@ -444,7 +444,7 @@ Object {
                   </label>
                   <input
                     class="absolute -left-full opacity-0"
-                    data-testid="hidden-input"
+                    data-testid="reach-date-hidden-input"
                     id="reach-date"
                     name="reach-date"
                     readonly=""

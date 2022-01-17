@@ -47,6 +47,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
           id={id}
           ref={ref}
           name={id}
+          maxLength={15}
           decimalsLimit={2}
           onValueChange={onValueChange}
           className="flex-1 focus:outline-none"

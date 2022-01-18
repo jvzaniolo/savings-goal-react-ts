@@ -1,25 +1,5 @@
 import { ReachDateInput } from './ReachDateInput';
 import { render, fireEvent, screen } from '@testing-library/react';
-import { useSavingGoal } from '../../hooks/useSavingGoal';
-
-let results: ReturnType<typeof useSavingGoal>;
-
-function ReachDateInputHookWrapper() {
-  results = useSavingGoal();
-
-  return (
-    <ReachDateInput
-      id="reach-date"
-      label="Reach goal by"
-      value={results.reachDate}
-      disabled={!results.canDecreaseMonth}
-      onChange={() => ({
-        onDecrease: results.handleMonthDecrease,
-        onIncrease: results.handleMonthIncrease,
-      })}
-    />
-  );
-}
 
 describe('ReachDateInput', () => {
   beforeEach(() => {
@@ -27,14 +7,14 @@ describe('ReachDateInput', () => {
   });
 
   it('should be able to render the component with initial data', () => {
-    render(<ReachDateInputHookWrapper />);
+    render(<ReachDateInput />);
 
     expect(screen.getByText('January')).toBeInTheDocument();
     expect(screen.getByText('2022')).toBeInTheDocument();
   });
 
   it('should start with left button disabled', () => {
-    render(<ReachDateInputHookWrapper />);
+    render(<ReachDateInput />);
 
     const leftButton = screen.getByTestId('reach-date-left-button');
 
@@ -42,41 +22,62 @@ describe('ReachDateInput', () => {
   });
 
   describe('onClick', () => {
-    it('should be able to INCREASE month by one when clicking right button', () => {
-      render(<ReachDateInputHookWrapper />);
+    it('should be able to INCREASE month by one when clicking the right button', () => {
+      const onChange = jest.fn();
+      render(
+        <ReachDateInput
+          id="reach-date"
+          label="Reach goal by"
+          onChange={onChange}
+        />
+      );
 
       fireEvent.click(screen.getByTestId('reach-date-right-button'));
 
       expect(screen.getByText('February')).toBeInTheDocument();
-      expect(results).toMatchObject({
-        reachDate: {
-          month: 'February',
-          year: 2022,
-        },
-        canDecreaseMonth: true,
+      expect(onChange).toHaveBeenLastCalledWith({
+        month: 'February',
+        year: 2022,
+        monthCounter: 1,
+        monthIndex: 1,
+        value: '2022-02-01',
       });
     });
 
     it('should be able to DECREASE month by one when clicking left button', () => {
-      render(<ReachDateInputHookWrapper />);
+      const onChange = jest.fn();
+      render(
+        <ReachDateInput
+          id="reach-date"
+          label="Reach goal by"
+          onChange={onChange}
+        />
+      );
 
-      // Month is at February, so clicking left button should decrease month to January
+      // Month is at February, so clicking left button should decrease to January
       fireEvent.click(screen.getByTestId('reach-date-left-button'));
 
       expect(screen.getByText('January')).toBeInTheDocument();
-      expect(results).toMatchObject({
-        reachDate: {
-          month: 'January',
-          year: 2022,
-        },
-        canDecreaseMonth: false,
+      expect(onChange).toHaveBeenLastCalledWith({
+        month: 'January',
+        year: 2022,
+        monthCounter: 0,
+        monthIndex: 0,
+        value: '2022-01-01',
       });
     });
   });
 
   describe('onKeydown', () => {
     it('should be able to INCREASE month by one when clicking right arrow on keyboard', () => {
-      render(<ReachDateInputHookWrapper />);
+      const onChange = jest.fn();
+      render(
+        <ReachDateInput
+          id="reach-date"
+          label="Reach goal by"
+          onChange={onChange}
+        />
+      );
 
       fireEvent.focus(screen.getByTestId('reach-date-hidden-input'));
 
@@ -88,17 +89,24 @@ describe('ReachDateInput', () => {
       });
 
       expect(screen.getByText('February')).toBeInTheDocument();
-      expect(results).toMatchObject({
-        reachDate: {
-          month: 'February',
-          year: 2022,
-        },
-        canDecreaseMonth: true,
+      expect(onChange).toHaveBeenLastCalledWith({
+        month: 'February',
+        year: 2022,
+        monthCounter: 1,
+        monthIndex: 1,
+        value: '2022-02-01',
       });
     });
 
     it('should be able to DECREASE month by one when clicking left arrow on keyboard', () => {
-      render(<ReachDateInputHookWrapper />);
+      const onChange = jest.fn();
+      render(
+        <ReachDateInput
+          id="reach-date"
+          label="Reach goal by"
+          onChange={onChange}
+        />
+      );
 
       fireEvent.focus(screen.getByTestId('reach-date-hidden-input'));
 
@@ -110,12 +118,12 @@ describe('ReachDateInput', () => {
       });
 
       expect(screen.getByText('January')).toBeInTheDocument();
-      expect(results).toMatchObject({
-        reachDate: {
-          month: 'January',
-          year: 2022,
-        },
-        canDecreaseMonth: false,
+      expect(onChange).toHaveBeenLastCalledWith({
+        month: 'January',
+        year: 2022,
+        monthCounter: 0,
+        monthIndex: 0,
+        value: '2022-01-01',
       });
     });
   });
@@ -125,45 +133,59 @@ describe('ReachDateInput', () => {
       it('should be able to INCREASE year by one when increasing from December', () => {
         jest.useFakeTimers('modern').setSystemTime(new Date(2022, 11));
 
-        render(<ReachDateInputHookWrapper />);
+        const onChange = jest.fn();
+        render(
+          <ReachDateInput
+            id="reach-date"
+            label="Reach goal by"
+            onChange={onChange}
+          />
+        );
 
         fireEvent.click(screen.getByTestId('reach-date-right-button'));
 
         expect(screen.getByText('January')).toBeInTheDocument();
-        expect(results).toMatchObject({
-          reachDate: {
-            month: 'January',
-            year: 2023,
-          },
-          canDecreaseMonth: true,
+        expect(onChange).toHaveBeenLastCalledWith({
+          month: 'January',
+          year: 2023,
+          monthCounter: 1,
+          monthIndex: 0,
+          value: '2023-01-01',
         });
       });
 
       it('should be able to DECREASE year by one when decreasing from January', () => {
         jest.useFakeTimers('modern').setSystemTime(new Date(2022, 11));
 
-        render(<ReachDateInputHookWrapper />);
+        const onChange = jest.fn();
+        render(
+          <ReachDateInput
+            id="reach-date"
+            label="Reach goal by"
+            onChange={onChange}
+          />
+        );
 
         fireEvent.click(screen.getByTestId('reach-date-right-button'));
         // Year is now at 2023, so clicking left button should decrease year to 2022
 
-        expect(results).toMatchObject({
-          reachDate: {
-            month: 'January',
-            year: 2023,
-          },
-          canDecreaseMonth: true,
+        expect(onChange).toHaveBeenLastCalledWith({
+          month: 'January',
+          year: 2023,
+          monthCounter: 1,
+          monthIndex: 0,
+          value: '2023-01-01',
         });
 
         fireEvent.click(screen.getByTestId('reach-date-left-button'));
 
         expect(screen.getByText('December')).toBeInTheDocument();
-        expect(results).toMatchObject({
-          reachDate: {
-            month: 'December',
-            year: 2022,
-          },
-          canDecreaseMonth: false,
+        expect(onChange).toHaveBeenLastCalledWith({
+          month: 'December',
+          year: 2022,
+          monthCounter: 0,
+          monthIndex: 11,
+          value: '2022-12-01',
         });
       });
     });
@@ -172,7 +194,14 @@ describe('ReachDateInput', () => {
       it('should be able to INCREASE year by one when increasing from December with right arrow on keyboard', () => {
         jest.useFakeTimers('modern').setSystemTime(new Date(2022, 11));
 
-        render(<ReachDateInputHookWrapper />);
+        const onChange = jest.fn();
+        render(
+          <ReachDateInput
+            id="reach-date"
+            label="Reach goal by"
+            onChange={onChange}
+          />
+        );
 
         fireEvent.focus(screen.getByTestId('reach-date-hidden-input'));
 
@@ -184,19 +213,26 @@ describe('ReachDateInput', () => {
         });
 
         expect(screen.getByText('January')).toBeInTheDocument();
-        expect(results).toMatchObject({
-          reachDate: {
-            month: 'January',
-            year: 2023,
-          },
-          canDecreaseMonth: true,
+        expect(onChange).toHaveBeenLastCalledWith({
+          month: 'January',
+          year: 2023,
+          monthCounter: 1,
+          monthIndex: 0,
+          value: '2023-01-01',
         });
       });
 
       it('should be able to DECREASE year by one when decreasing from January with left arrow on keyboard', () => {
         jest.useFakeTimers('modern').setSystemTime(new Date(2022, 11));
 
-        render(<ReachDateInputHookWrapper />);
+        const onChange = jest.fn();
+        render(
+          <ReachDateInput
+            id="reach-date"
+            label="Reach goal by"
+            onChange={onChange}
+          />
+        );
 
         fireEvent.focus(screen.getByTestId('reach-date-hidden-input'));
 
@@ -208,12 +244,12 @@ describe('ReachDateInput', () => {
         });
         // Year is now at 2023, so clicking left button should decrease year to 2022
 
-        expect(results).toMatchObject({
-          reachDate: {
-            month: 'January',
-            year: 2023,
-          },
-          canDecreaseMonth: true,
+        expect(onChange).toHaveBeenLastCalledWith({
+          month: 'January',
+          year: 2023,
+          monthCounter: 1,
+          monthIndex: 0,
+          value: '2023-01-01',
         });
 
         fireEvent.keyDown(screen.getByTestId('reach-date-left-button'), {
@@ -224,12 +260,12 @@ describe('ReachDateInput', () => {
         });
 
         expect(screen.getByText('December')).toBeInTheDocument();
-        expect(results).toMatchObject({
-          reachDate: {
-            month: 'December',
-            year: 2022,
-          },
-          canDecreaseMonth: false,
+        expect(onChange).toHaveBeenLastCalledWith({
+          month: 'December',
+          year: 2022,
+          monthCounter: 0,
+          monthIndex: 11,
+          value: '2022-12-01',
         });
       });
     });

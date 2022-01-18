@@ -44,46 +44,52 @@ function formatInputValue(value: { monthIndex: number; year: number }) {
 
   return `${value.year}-${formattedMonthIndex}-01`;
 }
-const getYear = (monthCount: number) =>
-  new Date().getFullYear() + Math.floor(monthCount / 12);
 
-const getMonthIndex = (monthCount: number) => monthCount % MONTHS.length;
-
-/**
- * A custom date input with a button to increase/decrease the month and year.
- *
- * It receives a value object and returns a Date as string with the format 'yyyy-MM-dd' as a normal date input would.
- *
- * @example
- * formData.get('reach-date') // '2022-01-01'
- *
- * <ReachDateInput
- *  id="reach-date"
- *  label="Reach goal by"
- *  onChange={({ value, monthIndex, month, year, counter}) => {
- *  }}
- * />
- */
 const ReachDateInputComponent: ForwardRefRenderFunction<
   HTMLInputElement,
   ReachDateInputProps
 > = ({ id, className, label, disabled, onChange, ...rest }, ref) => {
+  const [year, setYear] = useState(new Date().getFullYear());
   const [hasFocus, setHasFocus] = useState(false);
-  const [monthCount, setMonthCount] = useState(new Date().getMonth());
+  const [monthIndex, setMonthIndex] = useState(new Date().getMonth());
+  const [monthCounter, setMonthCounter] = useState(0);
 
   const isDecreaseDisabled =
-    getMonthIndex(monthCount) === new Date().getMonth() &&
-    getYear(monthCount) === new Date().getFullYear();
+    monthIndex === new Date().getMonth() && year === new Date().getFullYear();
 
   const handleDecrease = useCallback(() => {
     if (isDecreaseDisabled) return;
 
-    setMonthCount((m) => m - 1);
-  }, [isDecreaseDisabled]);
+    setMonthCounter(monthCounter - 1);
+
+    if (monthIndex === 0) {
+      setMonthIndex(11);
+      setYear(year - 1);
+    } else {
+      setMonthIndex((monthIndex - 1) % 12);
+    }
+  }, [isDecreaseDisabled, monthCounter, monthIndex, year]);
 
   const handleIncrease = useCallback(() => {
-    setMonthCount((m) => m + 1);
-  }, []);
+    setMonthCounter(monthCounter + 1);
+
+    if (monthIndex === 11) {
+      setMonthIndex(0);
+      setYear(year + 1);
+    } else {
+      setMonthIndex((monthIndex + 1) % 12);
+    }
+  }, [monthCounter, monthIndex, year]);
+
+  useEffect(() => {
+    onChange?.({
+      value: formatInputValue({ monthIndex, year }),
+      monthIndex,
+      month: MONTHS[monthIndex],
+      year,
+      monthCounter,
+    });
+  }, [monthCounter, monthIndex, onChange, year]);
 
   useEffect(() => {
     function eventListener(event: KeyboardEvent) {
@@ -97,19 +103,6 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
 
     return () => window.removeEventListener('keydown', eventListener);
   }, [hasFocus, handleDecrease, handleIncrease]);
-
-  useEffect(() => {
-    const year = getYear(monthCount);
-    const monthIndex = getMonthIndex(monthCount);
-
-    onChange?.({
-      value: formatInputValue({ monthIndex, year }),
-      monthIndex,
-      month: MONTHS[monthIndex],
-      year,
-      monthCounter: monthCount,
-    });
-  }, [monthCount, onChange]);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -141,10 +134,10 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
           </button>
           <section className="flex flex-col flex-1 items-center text-sm sm:text-base">
             <span className="w-24 font-semibold text-center text-blue-gray-800">
-              {MONTHS[getMonthIndex(monthCount)]}
+              {MONTHS[monthIndex]}
             </span>
 
-            <span className="text-blue-gray-400">{getYear(monthCount)}</span>
+            <span className="text-blue-gray-400">{year}</span>
           </section>
           <button
             type="button"
@@ -163,21 +156,33 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
         ref={ref}
         id={id}
         name={id}
-        {...rest}
-        value={formatInputValue({
-          monthIndex: getMonthIndex(monthCount),
-          year: getYear(monthCount),
-        })}
         type="date"
+        value={formatInputValue({ monthIndex, year })}
         className="absolute -left-full opacity-0"
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
         data-testid="reach-date-hidden-input"
         // fix for HTML element without onChange event
         readOnly
+        {...rest}
       />
     </div>
   );
 };
 
+/**
+ * A custom date input with a button to increase/decrease the month and year.
+ *
+ * It receives a value object and returns a Date as string with the format 'yyyy-MM-dd' as a normal date input would.
+ *
+ * @example
+ * formData.get('reach-date') // '2022-01-01'
+ *
+ * <ReachDateInput
+ *  id="reach-date"
+ *  label="Reach goal by"
+ *  onChange={useCallback((args) => {
+ *  }, [])}
+ * />
+ */
 export const ReachDateInput = forwardRef(ReachDateInputComponent);

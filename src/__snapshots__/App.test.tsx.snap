@@ -99,9 +99,7 @@ Object {
                       <input
                         class="flex-1 focus:outline-none"
                         id="amount"
-                        inputmode="decimal"
                         name="amount"
-                        type="text"
                         value=""
                       />
                     </div>
@@ -354,9 +352,7 @@ Object {
                     <input
                       class="flex-1 focus:outline-none"
                       id="amount"
-                      inputmode="decimal"
                       name="amount"
-                      type="text"
                       value=""
                     />
                   </div>

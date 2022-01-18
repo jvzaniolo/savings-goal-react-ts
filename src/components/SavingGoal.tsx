@@ -38,7 +38,7 @@ export function SavingGoal(): JSX.Element {
               id="amount"
               label="Total amount"
               icon={<BsCurrencyDollar size={24} />}
-              onValueChange={(value) => setAmount(parseFloat(String(value)))}
+              onChange={({ float }) => setAmount(float)}
             />
 
             <ReachDateInput

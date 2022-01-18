@@ -4,25 +4,13 @@ import { render, screen } from '@testing-library/react';
 
 describe('Monthly Amount Summary', () => {
   it('should be able to display the monthly amount in USD currency format', () => {
-    render(
-      <MonthlyAmountSummary
-        reachDate="March 2022"
-        amount={10000.0}
-        monthlyDeposits={3}
-      />
-    );
+    render(<MonthlyAmountSummary reachDate="2022-03-01" amount={10000.0} />);
 
     expect(screen.getByText('$3,333.33')).toBeInTheDocument();
   });
 
   it('should be able to display a monthly amount summary', () => {
-    render(
-      <MonthlyAmountSummary
-        reachDate="March 2022"
-        amount={10000.0}
-        monthlyDeposits={3}
-      />
-    );
+    render(<MonthlyAmountSummary reachDate="2022-03-01" amount={10000.0} />);
 
     expect(screen.getByTestId('monthly-amount-summary')).toMatchInlineSnapshot(`
       <span

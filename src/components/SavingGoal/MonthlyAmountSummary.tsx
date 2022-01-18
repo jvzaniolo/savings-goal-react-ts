@@ -1,26 +1,48 @@
 interface MonthlyAmountSummaryProps {
   reachDate: string;
   amount: number | undefined;
-  monthlyDeposits: number;
+}
+
+function getFormattedDate(reachDate: string) {
+  const [year, month] = reachDate.split('-');
+
+  const date = new Date(Number(year), Number(month) - 1);
+
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+}
+
+function getMonthlyDeposits(reachDate: string) {
+  const [year, month] = reachDate.split('-');
+
+  const d1 = new Date(Number(year), Number(month) - 1);
+  const d2 = new Date();
+
+  const months = (d1.getFullYear() - d2.getFullYear()) * 12;
+
+  return months + Math.abs(d1.getMonth() - d2.getMonth()) + 1;
+}
+
+function getMonthlyAmountFormatted(
+  amount: number | undefined,
+  monthlyDeposits: number
+): string {
+  let monthlyAmount = 0;
+
+  if (amount) {
+    monthlyAmount = amount > 0 ? amount / monthlyDeposits : 0;
+  }
+
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(monthlyAmount);
 }
 
 export function MonthlyAmountSummary({
   reachDate,
   amount,
-  monthlyDeposits,
 }: MonthlyAmountSummaryProps) {
-  function getMonthlyAmountFormatted(): string {
-    let monthlyAmount = 0;
-
-    if (amount) {
-      monthlyAmount = amount > 0 ? amount / monthlyDeposits : 0;
-    }
-
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(monthlyAmount);
-  }
+  const monthlyDeposits = getMonthlyDeposits(reachDate);
 
   return (
     <div className="flex flex-col rounded-lg border border-blue-gray-50">
@@ -30,9 +52,9 @@ export function MonthlyAmountSummary({
         </span>
         <span
           className="max-w-xs block font-display font-medium text-2xl sm:text-3xl text-ellipsis overflow-hidden whitespace-nowrap text-brand-secondary"
-          title={getMonthlyAmountFormatted()}
+          title={getMonthlyAmountFormatted(amount, monthlyDeposits)}
         >
-          {getMonthlyAmountFormatted()}
+          {getMonthlyAmountFormatted(amount, monthlyDeposits)}
         </span>
       </p>
 
@@ -53,7 +75,9 @@ export function MonthlyAmountSummary({
             }).format(amount || 0)}
           </strong>
           &nbsp;goal by&nbsp;
-          <strong className="font-semibold">{reachDate}.</strong>
+          <strong className="font-semibold">
+            {getFormattedDate(reachDate)}.
+          </strong>
         </span>
       </div>
     </div>

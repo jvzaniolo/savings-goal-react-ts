@@ -58,7 +58,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
 
   return (
     <div className="flex flex-1 flex-col">
-      <label htmlFor={id} tabIndex={1}>
+      <label htmlFor={id} tabIndex={1} className="flex flex-col">
         {label && (
           <span className="mb-1 text-xs sm:text-sm text-blue-gray-800">
             {label}

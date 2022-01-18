@@ -108,6 +108,7 @@ Object {
                     class="flex flex-1 flex-col"
                   >
                     <label
+                      class="flex flex-col"
                       for="reach-date"
                       tabindex="1"
                     >
@@ -361,6 +362,7 @@ Object {
                   class="flex flex-1 flex-col"
                 >
                   <label
+                    class="flex flex-col"
                     for="reach-date"
                     tabindex="1"
                   >

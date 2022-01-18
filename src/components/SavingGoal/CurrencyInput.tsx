@@ -1,28 +1,115 @@
-import { forwardRef } from 'react';
-import type { ReactNode, ForwardRefRenderFunction } from 'react';
-import ReactCurrencyInputField from 'react-currency-input-field';
-import type { CurrencyInputProps as ReactCurrencyInputProps } from 'react-currency-input-field';
+import { forwardRef, useState } from 'react';
+import type {
+  ChangeEvent,
+  InputHTMLAttributes,
+  ReactNode,
+  ForwardRefRenderFunction,
+} from 'react';
 
-interface CurrencyInputProps extends ReactCurrencyInputProps {
+interface CurrencyInputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   icon?: ReactNode;
   label?: ReactNode;
+  decimalLimit?: number;
+  /** Not recommended above 14 */
+  /** Breaks because of variable size */
+  integerLimit?: number;
+  locale?: string;
+  onChange?: ({
+    value,
+    float,
+    formatted,
+  }: {
+    value: string;
+    formatted: string;
+    float: number;
+  }) => void;
+}
+
+function getFormattedValue(value: string) {
+  return {
+    float: parseFloat(value) || 0,
+    currencyValue: Intl.NumberFormat('en-US').format(parseFloat(value) || 0),
+  };
 }
 
 /**
  * Auto formatted currency input field
  *
+ * Only works with 'en-US' locale
+ *
  * @example
  * <CurrencyInput
  *  id="currency-input"
  *  label="Salary"
- *  icon={<ReactIcon size={16} />}
- *  onValueChange={(value) => console.log(value)}
+ *  icon={<ReactIcon size={} />}
+ *  onChange={({ value, formatted, float }) => {
+ *    console.log(value); // '3500.45'
+ *    console.log(formatted); // '3,500.45'
+ *    console.log(float); // 3500.45
+ *  }}
  * />
  */
 const CurrencyInputComponent: ForwardRefRenderFunction<
   HTMLInputElement,
   CurrencyInputProps
-> = ({ id, label, className, icon, onValueChange }, ref) => {
+> = (
+  {
+    id,
+    label,
+    className,
+    icon,
+    onChange,
+    decimalLimit = 2,
+    /** Not recommended above 14 */
+    /** Breaks because of variable size */
+    integerLimit = 14,
+  },
+  ref
+) => {
+  const [value, setValue] = useState('');
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    /** Input value without commas */
+    const value$ = e.target.value.replace(/[,\s]/g, '');
+    const { float, currencyValue } = getFormattedValue(value$);
+
+    /** Deals with empty string */
+    if (!value$) {
+      setValue('');
+      onChange?.({
+        float,
+        value: value$,
+        formatted: currencyValue,
+      });
+      return;
+    }
+
+    if (isNaN(Number(value$))) return;
+
+    /** Reject typing more than one dot */
+    if (value$.split('.').length > 2) return;
+
+    /** Pause checking so the user can type decimals */
+    if (value$.endsWith('.')) {
+      setValue(e.target.value);
+      return;
+    }
+
+    const [int, decimal] = value$.split('.');
+
+    if (int.length > integerLimit) return;
+
+    if (decimal?.length > decimalLimit) return;
+
+    setValue(currencyValue);
+    onChange?.({
+      float,
+      value: value$,
+      formatted: currencyValue,
+    });
+  }
+
   return (
     <div className="flex flex-1 flex-col">
       {label && (
@@ -43,30 +130,14 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
             {icon}
           </span>
         )}
-        <ReactCurrencyInputField
+        <input
           id={id}
           ref={ref}
           name={id}
-          step={1}
-          maxLength={16}
-          decimalsLimit={2}
-          onValueChange={onValueChange}
+          value={value}
+          onChange={handleChange}
           className="flex-1 focus:outline-none"
-          // Override browser defaults if locale settings are different
-          groupSeparator=","
-          // Override browser defaults if locale settings are different
-          decimalSeparator="."
         />
-        {/*
-        Would prefer to format it with locale and Intl.NumberFormat
-        See open thread https://github.com/cchanxzy/react-currency-input-field/issues/222
-
-        E.g.:
-          <ReactCurrencyInputField
-            prefix=""
-            intlConfig={{ locale: 'en-US', currency: 'USD' }}
-          />
-        */}
       </div>
     </div>
   );

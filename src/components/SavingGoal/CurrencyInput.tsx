@@ -43,7 +43,6 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const valueWithoutComma = e.target.value.replace(/[,\s]/g, '');
-    const currencyValue = getFormattedValue(valueWithoutComma);
 
     if (!valueWithoutComma) {
       setValue('');
@@ -66,8 +65,15 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
     const [int, decimal] = valueWithoutComma.split('.');
 
     if (int.length > integerLimit) return;
-
     if (decimal?.length > decimalLimit) return;
+
+    const currencyValue = getFormattedValue(valueWithoutComma);
+
+    if (decimal?.[1] === '0') {
+      setValue(currencyValue + '0');
+      onChange?.(valueWithoutComma);
+      return;
+    }
 
     setValue(currencyValue);
     onChange?.(valueWithoutComma);

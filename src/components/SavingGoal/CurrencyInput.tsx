@@ -53,33 +53,31 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
   const [value, setValue] = useState('');
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    /** Input value without commas */
-    const value$ = e.target.value.replace(/[,\s]/g, '');
-    const { float, currencyValue } = getFormattedValue(value$);
+    const valueWithoutComma = e.target.value.replace(/[,\s]/g, '');
+    const { float, currencyValue } = getFormattedValue(valueWithoutComma);
 
-    /** Deals with empty string */
-    if (!value$) {
+    if (!valueWithoutComma) {
       setValue('');
       onChange?.({
         float,
-        value: value$,
+        value: valueWithoutComma,
         formatted: currencyValue,
       });
       return;
     }
 
-    if (isNaN(Number(value$))) return;
+    if (isNaN(Number(valueWithoutComma))) return;
 
     /** Reject typing more than one dot */
-    if (value$.split('.').length > 2) return;
+    if (valueWithoutComma.split('.').length > 2) return;
 
     /** Pause checking so the user can type decimals */
-    if (value$.endsWith('.')) {
+    if (valueWithoutComma.endsWith('.')) {
       setValue(e.target.value);
       return;
     }
 
-    const [int, decimal] = value$.split('.');
+    const [int, decimal] = valueWithoutComma.split('.');
 
     if (int.length > integerLimit) return;
 
@@ -88,7 +86,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
     setValue(currencyValue);
     onChange?.({
       float,
-      value: value$,
+      value: valueWithoutComma,
       formatted: currencyValue,
     });
   }

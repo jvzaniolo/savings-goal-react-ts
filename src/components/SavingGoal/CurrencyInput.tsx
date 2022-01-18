@@ -15,15 +15,7 @@ interface CurrencyInputProps
   /** Breaks because of variable size */
   integerLimit?: number;
   locale?: string;
-  onChange?: ({
-    value,
-    float,
-    formatted,
-  }: {
-    value: string;
-    formatted: string;
-    float: number;
-  }) => void;
+  onChange?(value: number): void;
 }
 
 function getFormattedValue(value: string) {
@@ -58,11 +50,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
 
     if (!valueWithoutComma) {
       setValue('');
-      onChange?.({
-        float,
-        value: valueWithoutComma,
-        formatted: currencyValue,
-      });
+      onChange?.(float);
       return;
     }
 
@@ -84,11 +72,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
     if (decimal?.length > decimalLimit) return;
 
     setValue(currencyValue);
-    onChange?.({
-      float,
-      value: valueWithoutComma,
-      formatted: currencyValue,
-    });
+    onChange?.(float);
   }
 
   return (
@@ -134,10 +118,8 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
  *  id="currency-input"
  *  label="Salary"
  *  icon={<ReactIcon size={} />}
- *  onChange={({ value, formatted, float }) => {
- *    console.log(value); // '3500.45'
- *    console.log(formatted); // '3,500.45'
- *    console.log(float); // 3500.45
+ *  onChange={(value) => {
+ *    console.log(value); // 3500.45
  *  }}
  * />
  */

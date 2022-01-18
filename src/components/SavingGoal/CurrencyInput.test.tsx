@@ -18,7 +18,7 @@ describe.only('Currency Input', () => {
     expect(currencyInput).toHaveValue('3,500.45');
   });
 
-  it('should be able to call the change function with the correct parsed values', () => {
+  it('should be able to call the change function with the correct value', () => {
     const onChange = jest.fn();
 
     render(
@@ -33,11 +33,7 @@ describe.only('Currency Input', () => {
       },
     });
 
-    expect(onChange).toHaveBeenCalledWith({
-      float: 3500.45,
-      formatted: '3,500.45',
-      value: '3500.45',
-    });
+    expect(onChange).toHaveBeenCalledWith(3500.45);
     expect(currencyInput).toHaveValue('3,500.45');
   });
 
@@ -62,11 +58,7 @@ describe.only('Currency Input', () => {
     });
 
     expect(currencyInput).toHaveValue('1,234');
-    expect(onChange).toHaveBeenCalledWith({
-      float: 1234,
-      formatted: '1,234',
-      value: '1234',
-    });
+    expect(onChange).toHaveBeenCalledWith(1234);
   });
 
   it('should NOT allow more than 2 decimal digits by default', () => {
@@ -95,10 +87,6 @@ describe.only('Currency Input', () => {
     });
 
     expect(currencyInput).toHaveValue('3,500.45');
-    expect(onChange).toHaveBeenCalledWith({
-      float: 3500.45,
-      formatted: '3,500.45',
-      value: '3500.45',
-    });
+    expect(onChange).toHaveBeenCalledWith(3500.45);
   });
 });

@@ -33,8 +33,8 @@ describe.only('Currency Input', () => {
       },
     });
 
-    expect(onChange).toHaveBeenCalledWith(3500.45);
     expect(currencyInput).toHaveValue('3,500.45');
+    expect(onChange).toHaveBeenCalledWith('3500.45');
   });
 
   it('should NOT allow inputs other than numbers', () => {
@@ -58,7 +58,7 @@ describe.only('Currency Input', () => {
     });
 
     expect(currencyInput).toHaveValue('1,234');
-    expect(onChange).toHaveBeenCalledWith(1234);
+    expect(onChange).toHaveBeenCalledWith('1234');
   });
 
   it('should NOT allow more than 2 decimal digits by default', () => {
@@ -87,6 +87,6 @@ describe.only('Currency Input', () => {
     });
 
     expect(currencyInput).toHaveValue('3,500.45');
-    expect(onChange).toHaveBeenCalledWith(3500.45);
+    expect(onChange).toHaveBeenCalledWith('3500.45');
   });
 });

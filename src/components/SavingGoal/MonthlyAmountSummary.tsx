@@ -1,6 +1,6 @@
 interface MonthlyAmountSummaryProps {
   reachDate: string;
-  amount: number | undefined;
+  amount: string;
 }
 
 function getFormattedDate(reachDate: string) {
@@ -23,13 +23,14 @@ function getMonthlyDeposits(reachDate: string) {
 }
 
 function getMonthlyAmountFormatted(
-  amount: number | undefined,
+  amount: string,
   monthlyDeposits: number
 ): string {
   let monthlyAmount = 0;
 
   if (amount) {
-    monthlyAmount = amount > 0 ? amount / monthlyDeposits : 0;
+    monthlyAmount =
+      parseFloat(amount) > 0 ? parseFloat(amount) / monthlyDeposits : 0;
   }
 
   return new Intl.NumberFormat('en-US', {
@@ -72,7 +73,7 @@ export function MonthlyAmountSummary({
             {new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
-            }).format(amount || 0)}
+            }).format(parseFloat(amount) || 0)}
           </strong>
           &nbsp;goal by&nbsp;
           <strong className="font-semibold">

@@ -8,7 +8,7 @@ import { MonthlyAmountSummary } from './SavingGoal/MonthlyAmountSummary';
 import buyAHouseImg from '../assets/icons/buy-a-house.svg';
 
 export function SavingGoal(): JSX.Element {
-  const [amount, setAmount] = useState<number>();
+  const [amount, setAmount] = useState('');
   const [reachDate, setReachDate] = useState('');
 
   return (

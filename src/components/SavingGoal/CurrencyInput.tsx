@@ -15,14 +15,11 @@ interface CurrencyInputProps
   /** Breaks because of variable size */
   integerLimit?: number;
   locale?: string;
-  onChange?(value: number): void;
+  onChange?(value: string): void;
 }
 
 function getFormattedValue(value: string) {
-  return {
-    float: parseFloat(value) || 0,
-    currencyValue: Intl.NumberFormat('en-US').format(parseFloat(value) || 0),
-  };
+  return Intl.NumberFormat('en-US').format(parseFloat(value) || 0);
 }
 
 const CurrencyInputComponent: ForwardRefRenderFunction<
@@ -46,11 +43,11 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const valueWithoutComma = e.target.value.replace(/[,\s]/g, '');
-    const { float, currencyValue } = getFormattedValue(valueWithoutComma);
+    const currencyValue = getFormattedValue(valueWithoutComma);
 
     if (!valueWithoutComma) {
       setValue('');
-      onChange?.(float);
+      onChange?.(valueWithoutComma);
       return;
     }
 
@@ -72,7 +69,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
     if (decimal?.length > decimalLimit) return;
 
     setValue(currencyValue);
-    onChange?.(float);
+    onChange?.(valueWithoutComma);
   }
 
   return (

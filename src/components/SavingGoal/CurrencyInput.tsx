@@ -59,6 +59,7 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
     /** Pause checking so the user can type decimals */
     if (valueWithoutComma.endsWith('.')) {
       setValue(e.target.value);
+      onChange?.(valueWithoutComma.slice(0, -1));
       return;
     }
 

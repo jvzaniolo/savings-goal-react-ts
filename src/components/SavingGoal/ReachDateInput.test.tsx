@@ -35,12 +35,7 @@ describe('ReachDateInput', () => {
       fireEvent.click(screen.getByTestId('reach-date-right-button'));
 
       expect(screen.getByText('February')).toBeInTheDocument();
-      expect(onChange).toHaveBeenLastCalledWith({
-        month: 'February',
-        year: 2022,
-        monthCounter: 1,
-        value: '2022-02-01',
-      });
+      expect(onChange).toHaveBeenLastCalledWith('2022-02-01');
     });
 
     it('should be able to DECREASE month by one when clicking left button', () => {
@@ -57,12 +52,7 @@ describe('ReachDateInput', () => {
       fireEvent.click(screen.getByTestId('reach-date-left-button'));
 
       expect(screen.getByText('January')).toBeInTheDocument();
-      expect(onChange).toHaveBeenLastCalledWith({
-        month: 'January',
-        year: 2022,
-        monthCounter: 0,
-        value: '2022-01-01',
-      });
+      expect(onChange).toHaveBeenLastCalledWith('2022-01-01');
     });
   });
 
@@ -87,12 +77,7 @@ describe('ReachDateInput', () => {
       });
 
       expect(screen.getByText('February')).toBeInTheDocument();
-      expect(onChange).toHaveBeenLastCalledWith({
-        month: 'February',
-        year: 2022,
-        monthCounter: 1,
-        value: '2022-02-01',
-      });
+      expect(onChange).toHaveBeenLastCalledWith('2022-02-01');
     });
 
     it('should be able to DECREASE month by one when clicking left arrow on keyboard', () => {
@@ -115,12 +100,7 @@ describe('ReachDateInput', () => {
       });
 
       expect(screen.getByText('January')).toBeInTheDocument();
-      expect(onChange).toHaveBeenLastCalledWith({
-        month: 'January',
-        year: 2022,
-        monthCounter: 0,
-        value: '2022-01-01',
-      });
+      expect(onChange).toHaveBeenLastCalledWith('2022-01-01');
     });
   });
 
@@ -141,12 +121,7 @@ describe('ReachDateInput', () => {
         fireEvent.click(screen.getByTestId('reach-date-right-button'));
 
         expect(screen.getByText('January')).toBeInTheDocument();
-        expect(onChange).toHaveBeenLastCalledWith({
-          month: 'January',
-          year: 2023,
-          monthCounter: 1,
-          value: '2023-01-01',
-        });
+        expect(onChange).toHaveBeenLastCalledWith('2023-01-01');
       });
 
       it('should be able to DECREASE year by one when decreasing from January', () => {
@@ -164,22 +139,12 @@ describe('ReachDateInput', () => {
         fireEvent.click(screen.getByTestId('reach-date-right-button'));
         // Year is now at 2023, so clicking left button should decrease year to 2022
 
-        expect(onChange).toHaveBeenLastCalledWith({
-          month: 'January',
-          year: 2023,
-          monthCounter: 1,
-          value: '2023-01-01',
-        });
+        expect(onChange).toHaveBeenLastCalledWith('2023-01-01');
 
         fireEvent.click(screen.getByTestId('reach-date-left-button'));
 
         expect(screen.getByText('December')).toBeInTheDocument();
-        expect(onChange).toHaveBeenLastCalledWith({
-          month: 'December',
-          year: 2022,
-          monthCounter: 0,
-          value: '2022-12-01',
-        });
+        expect(onChange).toHaveBeenLastCalledWith('2022-12-01');
       });
     });
 
@@ -206,12 +171,7 @@ describe('ReachDateInput', () => {
         });
 
         expect(screen.getByText('January')).toBeInTheDocument();
-        expect(onChange).toHaveBeenLastCalledWith({
-          month: 'January',
-          year: 2023,
-          monthCounter: 1,
-          value: '2023-01-01',
-        });
+        expect(onChange).toHaveBeenLastCalledWith('2023-01-01');
       });
 
       it('should be able to DECREASE year by one when decreasing from January with left arrow on keyboard', () => {
@@ -236,12 +196,7 @@ describe('ReachDateInput', () => {
         });
         // Year is now at 2023, so clicking left button should decrease year to 2022
 
-        expect(onChange).toHaveBeenLastCalledWith({
-          month: 'January',
-          year: 2023,
-          monthCounter: 1,
-          value: '2023-01-01',
-        });
+        expect(onChange).toHaveBeenLastCalledWith('2023-01-01');
 
         fireEvent.keyDown(screen.getByTestId('reach-date-left-button'), {
           key: 'ArrowLeft',
@@ -251,12 +206,7 @@ describe('ReachDateInput', () => {
         });
 
         expect(screen.getByText('December')).toBeInTheDocument();
-        expect(onChange).toHaveBeenLastCalledWith({
-          month: 'December',
-          year: 2022,
-          monthCounter: 0,
-          value: '2022-12-01',
-        });
+        expect(onChange).toHaveBeenLastCalledWith('2022-12-01');
       });
     });
   });

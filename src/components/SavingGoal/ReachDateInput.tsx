@@ -5,37 +5,18 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 interface ReachDateInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label?: ReactNode;
-  onChange?: ({
-    value,
-    month,
-    year,
-    monthCounter,
-  }: {
-    value: string;
-    month: string;
-    year: number;
-    monthCounter: number;
-  }) => void;
+  onChange?(value: string): void;
 }
 
-const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+function getYear(monthIndex: number) {
+  return new Date().getFullYear() + Math.floor(monthIndex / 12);
+}
 
-function formatInputValue(value: { monthIndex: number; year: number }) {
+function formatInputValue(value: { monthCounter: number; year: number }) {
+  const monthIndex = value.monthCounter % 12;
+
   const formattedMonthIndex =
-    value.monthIndex < 9 ? `0${value.monthIndex + 1}` : value.monthIndex + 1;
+    monthIndex < 9 ? `0${monthIndex + 1}` : monthIndex + 1;
 
   return `${value.year}-${formattedMonthIndex}-01`;
 }
@@ -44,51 +25,28 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
   HTMLInputElement,
   ReachDateInputProps
 > = ({ id, className, label, disabled, onChange, ...rest }, ref) => {
-  const [year, setYear] = useState(new Date().getFullYear());
   const [hasFocus, setHasFocus] = useState(false);
-  const [monthIndex, setMonthIndex] = useState(new Date().getMonth());
-  const [monthCounter, setMonthCounter] = useState(0);
+  const [monthCounter, setMonthCounter] = useState(new Date().getMonth());
+
+  const year = getYear(monthCounter);
 
   const isDecreaseDisabled =
-    monthIndex === new Date().getMonth() && year === new Date().getFullYear();
+    monthCounter === new Date().getMonth() && year === new Date().getFullYear();
 
   const handleDecrease = useCallback(() => {
     if (isDecreaseDisabled) return;
 
-    setMonthCounter(monthCounter - 1);
-
-    if (monthIndex === 0) {
-      setMonthIndex(11);
-      setYear(year - 1);
-    } else {
-      setMonthIndex(monthIndex - 1);
-    }
-  }, [isDecreaseDisabled, monthCounter, monthIndex, year]);
-
-  const handleIncrease = useCallback(() => {
-    setMonthCounter(monthCounter + 1);
-
-    if (monthIndex === 11) {
-      setMonthIndex(0);
-      setYear(year + 1);
-    } else {
-      setMonthIndex(monthIndex + 1);
-    }
-  }, [monthCounter, monthIndex, year]);
+    setMonthCounter((counter) => counter - 1);
+  }, [isDecreaseDisabled]);
 
   useEffect(() => {
-    onChange?.({
-      value: formatInputValue({ monthIndex, year }),
-      month: MONTHS[monthIndex],
-      year,
-      monthCounter,
-    });
-  }, [monthCounter, monthIndex, onChange, year]);
+    onChange?.(formatInputValue({ monthCounter, year }));
+  }, [monthCounter, onChange, year]);
 
   useEffect(() => {
     function eventListener(event: KeyboardEvent) {
       if (event.key === 'ArrowLeft') handleDecrease();
-      if (event.key === 'ArrowRight') handleIncrease();
+      if (event.key === 'ArrowRight') setMonthCounter((counter) => counter + 1);
     }
 
     if (hasFocus) {
@@ -96,7 +54,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
     }
 
     return () => window.removeEventListener('keydown', eventListener);
-  }, [hasFocus, handleDecrease, handleIncrease]);
+  }, [hasFocus, handleDecrease]);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -128,7 +86,9 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
           </button>
           <section className="flex flex-col flex-1 items-center text-sm sm:text-base">
             <span className="w-24 font-semibold text-center text-blue-gray-800">
-              {MONTHS[monthIndex]}
+              {new Date(year, monthCounter % 12).toLocaleString('en-US', {
+                month: 'long',
+              })}
             </span>
 
             <span className="text-blue-gray-400">{year}</span>
@@ -136,7 +96,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
           <button
             type="button"
             tabIndex={3}
-            onClick={handleIncrease}
+            onClick={() => setMonthCounter((counter) => counter + 1)}
             className="flex items-center text-center rounded-full transition-colors focus:outline-none text-blue-gray-300 hover:bg-slate-100 "
             onFocus={() => setHasFocus(true)}
             onBlur={() => setHasFocus(false)}
@@ -151,7 +111,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
         id={id}
         name={id}
         type="date"
-        value={formatInputValue({ monthIndex, year })}
+        value={formatInputValue({ monthCounter, year })}
         className="absolute -left-full opacity-0"
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
@@ -175,7 +135,8 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
  * <ReachDateInput
  *  id="reach-date"
  *  label="Reach goal by"
- *  onChange={({ value, month, year, monthCounter }) => {
+ *  onChange={(value) => {
+ *   console.log('reach-date', value);
  *  }}
  * />
  */

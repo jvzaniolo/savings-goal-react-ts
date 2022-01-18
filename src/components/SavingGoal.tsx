@@ -10,7 +10,6 @@ import buyAHouseImg from '../assets/icons/buy-a-house.svg';
 export function SavingGoal(): JSX.Element {
   const [amount, setAmount] = useState<number>();
   const [reachDate, setReachDate] = useState('');
-  const [monthlyDeposits, setMonthlyDeposits] = useState(1);
 
   return (
     <div className="sm:max-w-[40rem]">
@@ -38,24 +37,19 @@ export function SavingGoal(): JSX.Element {
               id="amount"
               label="Total amount"
               icon={<BsCurrencyDollar size={24} />}
-              onChange={({ float }) => setAmount(float)}
+              onChange={(value) => setAmount(value)}
             />
 
             <ReachDateInput
               id="reach-date"
               label="Reach goal by"
-              onChange={({ month, year, monthCounter }) => {
-                setReachDate(`${month} ${year}`);
-                setMonthlyDeposits(monthCounter + 1);
+              onChange={(value) => {
+                setReachDate(value);
               }}
             />
           </div>
 
-          <MonthlyAmountSummary
-            amount={amount}
-            reachDate={reachDate}
-            monthlyDeposits={monthlyDeposits}
-          />
+          <MonthlyAmountSummary amount={amount} reachDate={reachDate} />
 
           <Button
             type="submit"

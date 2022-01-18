@@ -3,20 +3,15 @@ import type { ForwardRefRenderFunction, ReactNode } from 'react';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 interface ReachDateInputProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'value' | 'onChange'
-  > {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label?: ReactNode;
   onChange?: ({
     value,
-    monthIndex,
     month,
     year,
     monthCounter,
   }: {
     value: string;
-    monthIndex: number;
     month: string;
     year: number;
     monthCounter: number;
@@ -66,7 +61,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
       setMonthIndex(11);
       setYear(year - 1);
     } else {
-      setMonthIndex((monthIndex - 1) % 12);
+      setMonthIndex(monthIndex - 1);
     }
   }, [isDecreaseDisabled, monthCounter, monthIndex, year]);
 
@@ -77,14 +72,13 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
       setMonthIndex(0);
       setYear(year + 1);
     } else {
-      setMonthIndex((monthIndex + 1) % 12);
+      setMonthIndex(monthIndex + 1);
     }
   }, [monthCounter, monthIndex, year]);
 
   useEffect(() => {
     onChange?.({
       value: formatInputValue({ monthIndex, year }),
-      monthIndex,
       month: MONTHS[monthIndex],
       year,
       monthCounter,
@@ -171,7 +165,7 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
 };
 
 /**
- * A custom date input with a button to increase/decrease the month and year.
+ * A custom date input with buttons to increase/decrease the month and year.
  *
  * It receives a value object and returns a Date as string with the format 'yyyy-MM-dd' as a normal date input would.
  *
@@ -181,8 +175,8 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
  * <ReachDateInput
  *  id="reach-date"
  *  label="Reach goal by"
- *  onChange={useCallback((args) => {
- *  }, [])}
+ *  onChange={({ value, month, year, monthCounter }) => {
+ *  }}
  * />
  */
 export const ReachDateInput = forwardRef(ReachDateInputComponent);

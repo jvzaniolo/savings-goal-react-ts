@@ -39,7 +39,6 @@ describe('ReachDateInput', () => {
         month: 'February',
         year: 2022,
         monthCounter: 1,
-        monthIndex: 1,
         value: '2022-02-01',
       });
     });
@@ -62,7 +61,6 @@ describe('ReachDateInput', () => {
         month: 'January',
         year: 2022,
         monthCounter: 0,
-        monthIndex: 0,
         value: '2022-01-01',
       });
     });
@@ -93,7 +91,6 @@ describe('ReachDateInput', () => {
         month: 'February',
         year: 2022,
         monthCounter: 1,
-        monthIndex: 1,
         value: '2022-02-01',
       });
     });
@@ -122,7 +119,6 @@ describe('ReachDateInput', () => {
         month: 'January',
         year: 2022,
         monthCounter: 0,
-        monthIndex: 0,
         value: '2022-01-01',
       });
     });
@@ -149,7 +145,6 @@ describe('ReachDateInput', () => {
           month: 'January',
           year: 2023,
           monthCounter: 1,
-          monthIndex: 0,
           value: '2023-01-01',
         });
       });
@@ -173,7 +168,6 @@ describe('ReachDateInput', () => {
           month: 'January',
           year: 2023,
           monthCounter: 1,
-          monthIndex: 0,
           value: '2023-01-01',
         });
 
@@ -184,7 +178,6 @@ describe('ReachDateInput', () => {
           month: 'December',
           year: 2022,
           monthCounter: 0,
-          monthIndex: 11,
           value: '2022-12-01',
         });
       });
@@ -217,7 +210,6 @@ describe('ReachDateInput', () => {
           month: 'January',
           year: 2023,
           monthCounter: 1,
-          monthIndex: 0,
           value: '2023-01-01',
         });
       });
@@ -248,7 +240,6 @@ describe('ReachDateInput', () => {
           month: 'January',
           year: 2023,
           monthCounter: 1,
-          monthIndex: 0,
           value: '2023-01-01',
         });
 
@@ -264,7 +255,6 @@ describe('ReachDateInput', () => {
           month: 'December',
           year: 2022,
           monthCounter: 0,
-          monthIndex: 11,
           value: '2022-12-01',
         });
       });

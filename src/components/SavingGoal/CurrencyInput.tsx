@@ -33,23 +33,6 @@ function getFormattedValue(value: string) {
   };
 }
 
-/**
- * Auto formatted currency input field
- *
- * Only works with 'en-US' locale
- *
- * @example
- * <CurrencyInput
- *  id="currency-input"
- *  label="Salary"
- *  icon={<ReactIcon size={} />}
- *  onChange={({ value, formatted, float }) => {
- *    console.log(value); // '3500.45'
- *    console.log(formatted); // '3,500.45'
- *    console.log(float); // 3500.45
- *  }}
- * />
- */
 const CurrencyInputComponent: ForwardRefRenderFunction<
   HTMLInputElement,
   CurrencyInputProps
@@ -143,4 +126,21 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
   );
 };
 
+/**
+ * Auto formatted currency input field
+ *
+ * Only works with 'en-US' locale
+ *
+ * @example
+ * <CurrencyInput
+ *  id="currency-input"
+ *  label="Salary"
+ *  icon={<ReactIcon size={} />}
+ *  onChange={({ value, formatted, float }) => {
+ *    console.log(value); // '3500.45'
+ *    console.log(formatted); // '3,500.45'
+ *    console.log(float); // 3500.45
+ *  }}
+ * />
+ */
 export const CurrencyInput = forwardRef(CurrencyInputComponent);

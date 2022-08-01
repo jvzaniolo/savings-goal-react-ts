@@ -1,25 +1,25 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState } from 'react'
 import type {
   ChangeEvent,
   InputHTMLAttributes,
   ReactNode,
   ForwardRefRenderFunction,
-} from 'react';
+} from 'react'
 
 interface CurrencyInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
-  icon?: ReactNode;
-  label?: ReactNode;
-  decimalLimit?: number;
+  icon?: ReactNode
+  label?: ReactNode
+  decimalLimit?: number
   /** Not recommended above 14 */
   /** Breaks because of variable size */
-  integerLimit?: number;
-  locale?: string;
-  onChange?(value: string): void;
+  integerLimit?: number
+  locale?: string
+  onChange?(value: string): void
 }
 
 function getFormattedValue(value: string) {
-  return Intl.NumberFormat('en-US').format(parseFloat(value) || 0);
+  return Intl.NumberFormat('en-US').format(parseFloat(value) || 0)
 }
 
 const CurrencyInputComponent: ForwardRefRenderFunction<
@@ -39,44 +39,44 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
   },
   ref
 ) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('')
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const valueWithoutComma = e.target.value.replace(/[,\s]/g, '');
+    const valueWithoutComma = e.target.value.replace(/[,\s]/g, '')
 
     if (!valueWithoutComma) {
-      setValue('');
-      onChange?.(valueWithoutComma);
-      return;
+      setValue('')
+      onChange?.(valueWithoutComma)
+      return
     }
 
-    if (isNaN(Number(valueWithoutComma))) return;
+    if (isNaN(Number(valueWithoutComma))) return
 
     /** Reject typing more than one dot */
-    if (valueWithoutComma.split('.').length > 2) return;
+    if (valueWithoutComma.split('.').length > 2) return
 
     /** Pause checking so the user can type decimals */
     if (valueWithoutComma.endsWith('.')) {
-      setValue(e.target.value);
-      onChange?.(valueWithoutComma.slice(0, -1));
-      return;
+      setValue(e.target.value)
+      onChange?.(valueWithoutComma.slice(0, -1))
+      return
     }
 
-    const [int, decimal] = valueWithoutComma.split('.');
+    const [int, decimal] = valueWithoutComma.split('.')
 
-    if (int.length > integerLimit) return;
-    if (decimal?.length > decimalLimit) return;
+    if (int.length > integerLimit) return
+    if (decimal?.length > decimalLimit) return
 
-    const currencyValue = getFormattedValue(valueWithoutComma);
+    const currencyValue = getFormattedValue(valueWithoutComma)
 
     if (decimal?.[1] === '0') {
-      setValue(currencyValue + '0');
-      onChange?.(valueWithoutComma);
-      return;
+      setValue(currencyValue + '0')
+      onChange?.(valueWithoutComma)
+      return
     }
 
-    setValue(currencyValue);
-    onChange?.(valueWithoutComma);
+    setValue(currencyValue)
+    onChange?.(valueWithoutComma)
   }
 
   return (
@@ -109,8 +109,8 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
 /**
  * Auto formatted currency input field
@@ -127,4 +127,4 @@ const CurrencyInputComponent: ForwardRefRenderFunction<
  *  }}
  * />
  */
-export const CurrencyInput = forwardRef(CurrencyInputComponent);
+export const CurrencyInput = forwardRef(CurrencyInputComponent)

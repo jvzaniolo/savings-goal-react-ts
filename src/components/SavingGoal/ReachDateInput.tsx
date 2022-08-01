@@ -1,60 +1,60 @@
-import { forwardRef, useCallback, useEffect, useState } from 'react';
-import type { ForwardRefRenderFunction, ReactNode } from 'react';
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import { forwardRef, useCallback, useEffect, useState } from 'react'
+import type { ForwardRefRenderFunction, ReactNode } from 'react'
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
 
 interface ReachDateInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
-  label?: ReactNode;
-  onChange?(value: string): void;
+  label?: ReactNode
+  onChange?(value: string): void
 }
 
 function getYear(monthIndex: number) {
-  return new Date().getFullYear() + Math.floor(monthIndex / 12);
+  return new Date().getFullYear() + Math.floor(monthIndex / 12)
 }
 
 function formatInputValue(value: { monthCounter: number; year: number }) {
-  const monthIndex = value.monthCounter % 12;
+  const monthIndex = value.monthCounter % 12
 
   const formattedMonthIndex =
-    monthIndex < 9 ? `0${monthIndex + 1}` : monthIndex + 1;
+    monthIndex < 9 ? `0${monthIndex + 1}` : monthIndex + 1
 
-  return `${value.year}-${formattedMonthIndex}-01`;
+  return `${value.year}-${formattedMonthIndex}-01`
 }
 
 const ReachDateInputComponent: ForwardRefRenderFunction<
   HTMLInputElement,
   ReachDateInputProps
 > = ({ id, className, label, disabled, onChange, ...rest }, ref) => {
-  const [hasFocus, setHasFocus] = useState(false);
-  const [monthCounter, setMonthCounter] = useState(new Date().getMonth());
+  const [hasFocus, setHasFocus] = useState(false)
+  const [monthCounter, setMonthCounter] = useState(new Date().getMonth())
 
-  const year = getYear(monthCounter);
+  const year = getYear(monthCounter)
 
   const isDecreaseDisabled =
-    monthCounter === new Date().getMonth() && year === new Date().getFullYear();
+    monthCounter === new Date().getMonth() && year === new Date().getFullYear()
 
   const handleDecrease = useCallback(() => {
-    if (isDecreaseDisabled) return;
+    if (isDecreaseDisabled) return
 
-    setMonthCounter((counter) => counter - 1);
-  }, [isDecreaseDisabled]);
+    setMonthCounter((counter) => counter - 1)
+  }, [isDecreaseDisabled])
 
   useEffect(() => {
-    onChange?.(formatInputValue({ monthCounter, year }));
-  }, [monthCounter, onChange, year]);
+    onChange?.(formatInputValue({ monthCounter, year }))
+  }, [monthCounter, onChange, year])
 
   useEffect(() => {
     function eventListener(event: KeyboardEvent) {
-      if (event.key === 'ArrowLeft') handleDecrease();
-      if (event.key === 'ArrowRight') setMonthCounter((counter) => counter + 1);
+      if (event.key === 'ArrowLeft') handleDecrease()
+      if (event.key === 'ArrowRight') setMonthCounter((counter) => counter + 1)
     }
 
     if (hasFocus) {
-      window.addEventListener('keydown', eventListener);
+      window.addEventListener('keydown', eventListener)
     }
 
-    return () => window.removeEventListener('keydown', eventListener);
-  }, [hasFocus, handleDecrease]);
+    return () => window.removeEventListener('keydown', eventListener)
+  }, [hasFocus, handleDecrease])
 
   return (
     <div className="flex flex-1 flex-col">
@@ -80,7 +80,6 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
             }`}
             onFocus={() => setHasFocus(true)}
             onBlur={() => setHasFocus(false)}
-            data-testid="reach-date-left-button"
           >
             <MdKeyboardArrowLeft size={24} className="m-2" />
           </button>
@@ -100,7 +99,6 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
             className="flex items-center text-center rounded-full transition-colors focus:outline-none text-blue-gray-300 hover:bg-slate-100 "
             onFocus={() => setHasFocus(true)}
             onBlur={() => setHasFocus(false)}
-            data-testid="reach-date-right-button"
           >
             <MdKeyboardArrowRight size={24} className="m-2 " />
           </button>
@@ -115,14 +113,13 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
         className="absolute -left-full opacity-0"
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
-        data-testid="reach-date-hidden-input"
         // fix for HTML element without onChange event
         readOnly
         {...rest}
       />
     </div>
-  );
-};
+  )
+}
 
 /**
  * A custom date input with buttons to increase/decrease the month and year.
@@ -140,4 +137,4 @@ const ReachDateInputComponent: ForwardRefRenderFunction<
  *  }}
  * />
  */
-export const ReachDateInput = forwardRef(ReachDateInputComponent);
+export const ReachDateInput = forwardRef(ReachDateInputComponent)

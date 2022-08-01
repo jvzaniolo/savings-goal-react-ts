@@ -1,6 +1,6 @@
 import { SavingGoal } from './components/SavingGoal'
 
-import logoImg from '../assets/icons/logo.svg'
+import logoImg from './assets/icons/logo.svg'
 
 export function App() {
   return (

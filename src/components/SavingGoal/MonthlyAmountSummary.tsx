@@ -60,10 +60,7 @@ export function MonthlyAmountSummary({
       </p>
 
       <div className="py-6 px-8 bg-blue-gray-10">
-        <span
-          className="text-xs sm:text-sm text-blue-gray-900"
-          data-testid="monthly-amount-summary"
-        >
+        <span className="text-xs sm:text-sm text-blue-gray-900">
           You&apos;re planning&nbsp;
           <strong className="font-semibold">
             {monthlyDeposits} monthly deposits&nbsp;

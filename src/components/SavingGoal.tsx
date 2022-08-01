@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { BsCurrencyDollar } from 'react-icons/bs'
-import { Button } from './Button'
 import { ReachDateInput } from './SavingGoal/ReachDateInput'
 import { CurrencyInput } from './SavingGoal/CurrencyInput'
 import { MonthlyAmountSummary } from './SavingGoal/MonthlyAmountSummary'
 
 import buyAHouseImg from '../assets/icons/buy-a-house.svg'
 
-export function SavingGoal(): JSX.Element {
+export function SavingGoal() {
   const [amount, setAmount] = useState('')
   const [reachDate, setReachDate] = useState('')
 
@@ -43,20 +42,18 @@ export function SavingGoal(): JSX.Element {
             <ReachDateInput
               id="reach-date"
               label="Reach goal by"
-              onChange={(value) => {
-                setReachDate(value)
-              }}
+              onChange={(value) => setReachDate(value)}
             />
           </div>
 
           <MonthlyAmountSummary amount={amount} reachDate={reachDate} />
 
-          <Button
+          <button
             type="submit"
-            className="w-full sm:max-w-xs !mt-8 self-center"
+            className="w-full sm:max-w-xs !mt-8 self-center p-4 rounded-full transition-shadow bg-brand-primary text-white hover:shadow-md hover:shadow-blue-300 focus:outline-brand-secondary"
           >
             Confirm
-          </Button>
+          </button>
         </form>
       </div>
     </div>

@@ -1,7 +1,7 @@
-import { Header } from './layout/Header';
-import { SavingGoal } from './components/SavingGoal';
+import { Header } from './components/Header'
+import { SavingGoal } from './components/SavingGoal'
 
-export function App(): JSX.Element {
+export function App() {
   return (
     <div className="w-screen h-screen overflow-auto bg-background">
       <Header />
@@ -9,5 +9,5 @@ export function App(): JSX.Element {
         <SavingGoal />
       </main>
     </div>
-  );
+  )
 }

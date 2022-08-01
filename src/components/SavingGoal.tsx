@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { BsCurrencyDollar } from 'react-icons/bs';
-import { Button } from '../layout/Button';
-import { ReachDateInput } from './SavingGoal/ReachDateInput';
-import { CurrencyInput } from './SavingGoal/CurrencyInput';
-import { MonthlyAmountSummary } from './SavingGoal/MonthlyAmountSummary';
+import { useState } from 'react'
+import { BsCurrencyDollar } from 'react-icons/bs'
+import { Button } from './Button'
+import { ReachDateInput } from './SavingGoal/ReachDateInput'
+import { CurrencyInput } from './SavingGoal/CurrencyInput'
+import { MonthlyAmountSummary } from './SavingGoal/MonthlyAmountSummary'
 
-import buyAHouseImg from '../assets/icons/buy-a-house.svg';
+import buyAHouseImg from '../assets/icons/buy-a-house.svg'
 
 export function SavingGoal(): JSX.Element {
-  const [amount, setAmount] = useState('');
-  const [reachDate, setReachDate] = useState('');
+  const [amount, setAmount] = useState('')
+  const [reachDate, setReachDate] = useState('')
 
   return (
     <div className="sm:max-w-[40rem]">
@@ -44,7 +44,7 @@ export function SavingGoal(): JSX.Element {
               id="reach-date"
               label="Reach goal by"
               onChange={(value) => {
-                setReachDate(value);
+                setReachDate(value)
               }}
             />
           </div>
@@ -60,5 +60,5 @@ export function SavingGoal(): JSX.Element {
         </form>
       </div>
     </div>
-  );
+  )
 }

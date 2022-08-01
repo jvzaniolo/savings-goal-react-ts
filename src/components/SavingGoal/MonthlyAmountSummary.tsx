@@ -1,49 +1,49 @@
 interface MonthlyAmountSummaryProps {
-  reachDate: string;
-  amount: string;
+  reachDate: string
+  amount: string
 }
 
 function getFormattedDate(reachDate: string) {
-  const [year, month] = reachDate.split('-');
+  const [year, month] = reachDate.split('-')
 
-  const date = new Date(Number(year), Number(month) - 1);
+  const date = new Date(Number(year), Number(month) - 1)
 
-  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
 }
 
 function getMonthlyDeposits(reachDate: string) {
-  const [year, month] = reachDate.split('-');
+  const [year, month] = reachDate.split('-')
 
-  const d1 = new Date(Number(year), Number(month) - 1);
-  const d2 = new Date();
+  const d1 = new Date(Number(year), Number(month) - 1)
+  const d2 = new Date()
 
-  const months = (d1.getFullYear() - d2.getFullYear()) * 12;
+  const months = (d1.getFullYear() - d2.getFullYear()) * 12
 
-  return months + Math.abs(d1.getMonth() - d2.getMonth()) + 1;
+  return months + Math.abs(d1.getMonth() - d2.getMonth()) + 1
 }
 
 function getMonthlyAmountFormatted(
   amount: string,
   monthlyDeposits: number
 ): string {
-  let monthlyAmount = 0;
+  let monthlyAmount = 0
 
   if (amount) {
     monthlyAmount =
-      parseFloat(amount) > 0 ? parseFloat(amount) / monthlyDeposits : 0;
+      parseFloat(amount) > 0 ? parseFloat(amount) / monthlyDeposits : 0
   }
 
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-  }).format(monthlyAmount);
+  }).format(monthlyAmount)
 }
 
 export function MonthlyAmountSummary({
   reachDate,
   amount,
 }: MonthlyAmountSummaryProps) {
-  const monthlyDeposits = getMonthlyDeposits(reachDate);
+  const monthlyDeposits = getMonthlyDeposits(reachDate)
 
   return (
     <div className="flex flex-col rounded-lg border border-blue-gray-50">
@@ -82,5 +82,5 @@ export function MonthlyAmountSummary({
         </span>
       </div>
     </div>
-  );
+  )
 }

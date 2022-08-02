@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BsCurrencyDollar } from 'react-icons/bs'
-import { ReachDateInput } from './SavingGoal/ReachDateInput'
+import { ReachDate } from './SavingGoal/ReachDate'
 import { CurrencyInput } from './SavingGoal/CurrencyInput'
 import { MonthlyAmountSummary } from './SavingGoal/MonthlyAmountSummary'
 
@@ -8,7 +8,7 @@ import buyAHouseImg from '../assets/icons/buy-a-house.svg'
 
 export function SavingGoal() {
   const [amount, setAmount] = useState('')
-  const [reachDate, setReachDate] = useState('')
+  const [reachDate, setReachDate] = useState(new Date())
 
   return (
     <div className="sm:max-w-[40rem]">
@@ -39,9 +39,10 @@ export function SavingGoal() {
               onChange={(value) => setAmount(value)}
             />
 
-            <ReachDateInput
+            <ReachDate
               id="reach-date"
               label="Reach goal by"
+              value={reachDate}
               onChange={(value) => setReachDate(value)}
             />
           </div>

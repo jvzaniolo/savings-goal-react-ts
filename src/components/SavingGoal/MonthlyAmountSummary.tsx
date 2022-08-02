@@ -1,31 +1,21 @@
-interface MonthlyAmountSummaryProps {
-  reachDate: string
-  amount: string
+function getFormattedDate(reachDate: Date) {
+  return reachDate.toLocaleDateString('en-US', {
+    month: 'long',
+    year: 'numeric',
+  })
 }
 
-function getFormattedDate(reachDate: string) {
-  const [year, month] = reachDate.split('-')
+function getMonthlyDeposits(reachDate: Date) {
+  const now = new Date()
+  const differenceInMonths =
+    reachDate.getMonth() -
+    now.getMonth() +
+    12 * (reachDate.getFullYear() - now.getFullYear())
 
-  const date = new Date(Number(year), Number(month) - 1)
-
-  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+  return differenceInMonths + 1
 }
 
-function getMonthlyDeposits(reachDate: string) {
-  const [year, month] = reachDate.split('-')
-
-  const d1 = new Date(Number(year), Number(month) - 1)
-  const d2 = new Date()
-
-  const months = (d1.getFullYear() - d2.getFullYear()) * 12
-
-  return months + Math.abs(d1.getMonth() - d2.getMonth()) + 1
-}
-
-function getMonthlyAmountFormatted(
-  amount: string,
-  monthlyDeposits: number
-): string {
+function formatMonthlyAmount(amount: string, monthlyDeposits: number): string {
   let monthlyAmount = 0
 
   if (amount) {
@@ -42,7 +32,10 @@ function getMonthlyAmountFormatted(
 export function MonthlyAmountSummary({
   reachDate,
   amount,
-}: MonthlyAmountSummaryProps) {
+}: {
+  reachDate: Date
+  amount: string
+}) {
   const monthlyDeposits = getMonthlyDeposits(reachDate)
 
   return (
@@ -53,9 +46,9 @@ export function MonthlyAmountSummary({
         </span>
         <span
           className="max-w-xs block font-display font-medium text-2xl sm:text-3xl text-ellipsis overflow-hidden whitespace-nowrap text-brand-secondary"
-          title={getMonthlyAmountFormatted(amount, monthlyDeposits)}
+          title={formatMonthlyAmount(amount, monthlyDeposits)}
         >
-          {getMonthlyAmountFormatted(amount, monthlyDeposits)}
+          {formatMonthlyAmount(amount, monthlyDeposits)}
         </span>
       </p>
 

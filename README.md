@@ -1,5 +1,7 @@
 # Origin Saving Goal Assignment
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2aec5523-53bc-4d0d-a1c2-73df068496dd/deploy-status)](https://app.netlify.com/sites/saving-goals-jvzaniolo/deploys)
+
 ![saving-goal gif](https://user-images.githubusercontent.com/54036572/149708026-a22db8d2-8221-4e70-811b-89bca666784f.gif)
 
 Check it at Vercel https://saving-goal-assignment.vercel.app/

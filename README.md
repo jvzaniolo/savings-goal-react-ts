@@ -4,7 +4,7 @@
 
 ![saving-goal gif](https://user-images.githubusercontent.com/54036572/149708026-a22db8d2-8221-4e70-811b-89bca666784f.gif)
 
-Check it at Vercel https://saving-goal-assignment.vercel.app/
+Check it at Netlify https://saving-goals-jvzaniolo.netlify.app/
 
 
 ## Tech Stack
